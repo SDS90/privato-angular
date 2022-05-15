@@ -1,0 +1,600 @@
+<div class="featurette sec">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-sm-4 col-md-3 col-lg-3 main-sidebar-wrapper">
+                    <div class="sidebar1 list-page-sidebar">
+                        <!-- div id="res"></div -->
+                        <form action="/search.php" method="POST" enctype="multipart/form-data" ng-init="onFilterLoad()" >
+
+                            <input name="goto" value="catalog" type="hidden">
+                            <input name="search" value="1" type="hidden">
+                            <input name="rent" value="buy" type="hidden" class="form-rent"> <!-- Важный параметр! Показывает значение аренды или продажи -->
+
+                            <fieldset>
+                                <div class="styled-select slate2">
+                                    <select name="route[]" class="selectpicker select-route" multiple data-live-search="true" title="Направление" data-header="Выберите">
+                                        <option ng-repeat="route in privatoData.Routes" data-tokens="{{route.nameRus}}" value="{{route.nameTranslit}}" on-finish-render="ngRepeatFinished">{{route.nameRus}}</option>
+                                    </select>
+                                </div>
+
+                                <div class="styled-select slate2">
+                                    <select name="town[]" class="selectpicker select-town" multiple data-live-search="true" title="Населенный пункт" data-header="Выберите">
+                                        <option ng-repeat="town in privatoData.Towns" class="route-id-{{town.route}}" data-tokens="{{town.nameRus}}" data-route-id="{{town.route}}"  value="{{town.nameTranslit}}" on-finish-render="ngRepeatFinished">{{town.nameRus}}</option>
+                                    </select>
+                                </div>
+
+                                <div class="styled-select slate2" ng-show="filterHouseShow">
+                                    <select name="settl[]" class="selectpicker select-settlements" multiple data-live-search="true" title="Коттеджный поселок" data-header="Выберите">
+                                        <option ng-repeat="settlement in privatoData.Settlements" class="route-id-{{settlement.routeID}} town-id-{{settlement.townID}}" data-tokens="{{settlement.nameRus}}" data-route-id="{{settlement.routeID}}" data-town-id="{{settlement.townID}}" value="{{settlement.nameTranslit}}" on-finish-render="ngRepeatFinished">{{settlement.nameRus}}</option>
+                                    </select>
+                                </div>
+
+                                <div class="styled-select slate2" ng-show="filterHouseShow">
+                                    <select name="type[]" class="selectpicker" multiple data-live-search="false" title="Тип недвижимости" data-header="Выберите">
+                                        <option ng-repeat="type in privatoData.estatesTypes" data-tokens="{{type.name}}"  value="{{type.value}}" on-finish-render="ngRepeatFinished">{{type.name}}</option>
+                                    </select>
+                                </div>
+                                <div class="styled-select slate2" ng-show="filterHouseShow">
+                                    <select name="sost[]" class="selectpicker" multiple data-live-search="false" title="Состояние" data-header="Выберите">
+                                        <option ng-repeat="type in condition.estatesCondition" data-tokens="{{condition.name}}"  value="{{condition.value}}" on-finish-render="ngRepeatFinished">{{condition.name}}</option>
+                                    </select>
+                                </div>
+
+                                <div class="row"  ng-show="!filterHouseShow">
+                                    <div class="col-xs-4" style="padding:7px 0 0px 15px" ><nobr>Домов</nobr></div>
+                                    <div class="col-xs-4 from_f">
+                                        <div class="styled-select slate2 snumber">
+                                            <select name="housesfrom" multiple class="selectpicker" title="от">
+                                                <option value="0">0</option>
+                                                <option value="5">5</option>
+                                                <option value="10">10</option>
+                                                <option value="15">15</option>
+                                                <option value="20">20</option>
+                                                <option value="25">25</option>
+                                                <option value="30">30</option>
+                                                <option value="35">35</option>                    
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4 to_f">
+                                        <div class="styled-select slate2 snumber">
+                                            <select name="housesto" multiple data-max-options="1" class="selectpicker" title="до">
+                                                <option value="5">5</option>
+                                                <option value="10">10</option>
+                                                <option value="15">15</option>
+                                                <option value="20">20</option>
+                                                <option value="25">25</option>
+                                                <option value="30">30</option>
+                                                <option value="35">35</option>
+                                                <option value="40">40</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-xs-4" style="padding:7px 0 0px 15px" ><nobr>МКАД,  км</nobr></div>
+                                    <div class="col-xs-4 from_f">
+                                        <div class="styled-select slate2 snumber">
+                                            <select name="mkadfrom" multiple class="selectpicker" title="от">
+                                                <option value="0">0</option>
+                                                <option value="5">5</option>
+                                                <option value="10">10</option>
+                                                <option value="15">15</option>
+                                                <option value="20">20</option>
+                                                <option value="25">25</option>
+                                                <option value="30">30</option>
+                                                <option value="35">35</option>                    
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4 to_f">
+                                        <div class="styled-select slate2 snumber">
+                                            <select name="mkadto" multiple data-max-options="1" class="selectpicker" title="до">
+                                                <option value="5">5</option>
+                                                <option value="10">10</option>
+                                                <option value="15">15</option>
+                                                <option value="20">20</option>
+                                                <option value="25">25</option>
+                                                <option value="30">30</option>
+                                                <option value="35">35</option>
+                                                <option value="40">40</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row" ng-show="filterHouseShow">
+                                    <div class="col-xs-4"><nobr>Площадь, м<sup>2</sup></nobr></div>
+                                    <div class="col-xs-4 from_f">
+                                        <div class="styled-select slate2 snumber">
+                                            <select name="squarefrom" multiple data-max-options="1" class="selectpicker" title="от">
+                                                <option value="200">200</option>
+                                                <option value="300">300</option>
+                                                <option value="400">400</option>
+                                                <option value="500">500</option>
+                                                <option value="600">600</option>
+                                                <option value="700">700</option>
+                                                <option value="800">800</option>
+                                                <option value="900">900</option>
+                                                <option value="1000">1000</option>
+                                                <option value="1200">1200</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4 to_f">
+                                        <div class="styled-select slate2 snumber">
+                                            <select name="squareto" multiple data-max-options="1" class="selectpicker" title="до">
+                                                <option value="300">300</option>
+                                                <option value="400">400</option>
+                                                <option value="500">500</option>
+                                                <option value="600">600</option>
+                                                <option value="700">700</option>
+                                                <option value="800">800</option>
+                                                <option value="900">900</option>
+                                                <option value="1000">1000</option>
+                                                <option value="1200">1200</option>
+                                                <option value="1500">1500</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row" ng-show="filterHouseShow">
+                                    <div class="col-xs-4"><nobr>Участок, сот.</nobr></div>
+                                    <div class="col-xs-4 from_f">
+                                        <div class="styled-select slate2 snumber">
+                                            <select name="uchfrom" multiple data-max-options="1" class="selectpicker" title="от">
+                                                <option value="10">10</option>
+                                                <option value="15">15</option>
+                                                <option value="20">20</option>
+                                                <option value="25">25</option>
+                                                <option value="30">30</option>
+                                                <option value="35">35</option>
+                                                <option value="40">40</option>
+                                                <option value="50">50</option>
+                                                <option value="60">60</option>
+                                                <option value="70">70</option>
+                                                <option value="80">80</option>
+                                                <option value="90">90</option>
+                                                <option value="100">100</option>
+                                                <option value="150">150</option> 
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4 to_f">
+                                        <div class="styled-select slate2 snumber">
+                                            <select name="uchto" multiple data-max-options="1" class="selectpicker" title="до">
+                                                <option value="15">15</option>
+                                                <option value="20">20</option>
+                                                <option value="25">25</option>
+                                                <option value="30">30</option>
+                                                <option value="35">35</option>
+                                                <option value="40">40</option>
+                                                <option value="50">50</option>
+                                                <option value="60">60</option>
+                                                <option value="70">70</option>
+                                                <option value="80">80</option>
+                                                <option value="90">90</option>
+                                                <option value="100">100</option>
+                                                <option value="150">150</option>
+                                                <option value="200">200</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-bottom:7px" >
+                                    <div class="col-xs-4 sb_1p"><nobr>Цена, $ <span id="mln">млн.</span></nobr></div>
+                                    <div class="col-xs-4 from_f"> 
+                                                                 
+                                        <div class="styled-select slate2 snumber">
+                                            <select name="pricefrom" multiple data-max-options="1" class="selectpicker" title="от">
+                                                <option value="0.1">0.1</option>
+                                                <option value="0.2">0.2</option>
+                                                <option value="0.3">0.3</option>
+                                                <option value="0.4">0.4</option>
+                                                <option value="0.5">0.5</option>
+                                                <option value="0.6">0.6</option>
+                                                <option value="10">10</option>
+                                                <option value="15">15</option> 
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4 to_f"> 
+                                      
+                                        <div class="styled-select slate2 snumber">
+                                            <select name="priceto" multiple data-max-options="1" class="selectpicker" title="до">
+                                                <option value="0.2">0.2</option>
+                                                <option value="0.3">0.3</option>
+                                                <option value="0.4">0.4</option>
+                                                <option value="0.5">0.5</option>
+                                                <option value="0.6">0.6</option>
+                                                <option value="0.7">0.7</option>
+                                                <option value="10">10</option>
+                                                <option value="15">15</option>
+                                                <option value="20">20</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="rash" ng-show="filterHouseShow"> 
+                                    <a href="javascript:void(0)" class="link_rash">Расширенный поиск</a>
+                                </div>
+
+                                <div class="form_rash" ng-show="filterHouseShow">
+             
+                                    <div class="col-xs-12 lsel" style="padding-left:0; padding-bottom:4px;">
+                                        <input type="checkbox" class="checkbox" name="ohran">
+                                        <label for="ohran1">Здание для охраны</label>
+                                    </div>
+                                    <div class="col-xs-12 lsel" style="padding-left:0; padding-bottom:4px;">
+                                        <input type="checkbox" class="checkbox" name="prislug">
+                                        <label for="prislug1">Дом для прислуги</label>
+                                    </div>
+                                    <div class="col-xs-12 lsel" style="padding-left:0; padding-bottom:4px;">
+                                        <input type="checkbox" class="checkbox" name="bassein" >
+                                        <label for="bassein1">Бассейн</label>
+                                    </div>
+                                    <div class="col-xs-12 lsel" style="padding-left:0; padding-bottom:4px;">
+                                        <input type="checkbox" class="checkbox" name="parkovka">
+                                        <label for="parkovka1">Парковка</label>
+                                    </div>
+                                    <div class="col-xs-12 lsel" style="padding-left:0; padding-bottom:4px;">
+                                        <input type="checkbox" class="checkbox" name="garazh">
+                                        <label for="garazh1">Гараж</label>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-xs-12">
+                                            <div class="styled-select slate2">
+                                                <select name="sort" multiple data-max-options="1" class="selectpicker" title="Сортировка">
+                                                    <option value="sort_id_minus">Новые</option>
+                                                    <option value="sort_id_plus">Старые</option>
+                                                    <option value="sort_price_minus">Дорогие</option>
+                                                    <option value="sort_price_plus">Дешевые</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-xs-12">
+                                            <div class="styled-select slate2">
+                                                <select name="cnt" multiple data-max-options="1" class="selectpicker" title="Объектов на странице">
+                                                    <option value="12" >12 объектов на странице</option>
+                                                    <option value="24" >24 объектов на странице</option>
+                                                    <option value="48" >48 объектов на странице</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-xs-12">
+                                            <input type="text" value="" placeholder="Поиск по № объекта" name="artikul">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <input type="submit" value="Найти" class="find">
+
+                            </fieldset>
+                        </form>
+                    </div>
+
+                </div>
+
+                <article class="col-sm-12 col-md-12 col-lg-9">
+                    <div class="col-xs-12 mh1">
+                        <h1>{{pageHeader}}</h1>
+                    </div>
+
+                    <section> 
+                    <!--text-->
+          
+
+                        <div style="width:100%; float:left; clear:both; min-height:51px;">
+                            <div class="col-xs-12 col-sm-6 col-md-8" style="padding-bottom:0px; margin-top:10px;">
+                                <span class="naj_o">Найдено объектов:</span> <span class="naj_c">1093</span>
+                            </div>
+    
+                            <div class="col-xs-12 col-sm-6 col-md-4" style="text-align:right; margin-top:3px; padding-bottom:0px;" ng-show="filterHouseShow">
+                                <div class="to_find fav" id="total_fav">
+                                    <div style="padding-left:20px; display:inline-block">Избранное &mdash; 0</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="acont">
+
+                            <!-- Блок одного дома -->
+                            <a href="{{href}}" class="col-xs-12 col-sm-6 col-md-4 col-lg-4  pop_pos {{settlementBlockClass}}" style="cursor:default">
+                                <div class="like"  ng-show="filterHouseShow">
+                                    <div class="add-to-note" title="Добавить в избранное"><i class="glyphicon glyphicon-heart-empty"></i></div>
+                                </div>
+
+                                <div class="catitem">
+                                    <!-- Фото -->
+                                    <div class="galleria" style="background-image: url(http://d4f9iohg5m4al.cloudfront.net/original/settlements/499.jpg)"></div>
+
+                                    <div class="cat_price" ng-show="filterHouseShow">$ 1 500 000</div>
+                                    <strong ng-show="!filterHouseShow">10 ярдов</strong>
+                                    <span ng-show="!filterHouseShow">7 предложений</span>
+                                </div>
+
+                                <div class="loca cat_loca" style="cursor:pointer">
+                                    <div class="cat_name"  ng-show="filterHouseShow">Павлово-2&nbsp;</div>
+                                    <div class="geo">Новорижское шоссе, 15 км</div>
+
+                                    <div class="cat_har"  ng-show="filterHouseShow">
+                                        <div class="col-xs-4" style="padding:0; white-space:nowrap;">460<sup style="font-size:10px">М<sup>2</sup></sup></div>
+                                        <div class="col-xs-3" style="padding:0; white-space:nowrap;  text-align:center">31 <sup style="font-size:10px">СОТ</sup></div> 
+                                        <div class="col-xs-5 mebel">Без отделки</div>
+
+                                        <div class="col-xs-12 anons">
+                                            <div>Продаётся дом 460 м<sup>2</sup> в посёлке Павлово-2</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+
+                            <!-- Блок одного дома -->
+                            <a href="{{href}}" class="col-xs-12 col-sm-6 col-md-4 col-lg-4  pop_pos {{settlementBlockClass}}" style="cursor:default">
+                                <div class="like"  ng-show="filterHouseShow">
+                                    <div class="add-to-note" title="Добавить в избранное"><i class="glyphicon glyphicon-heart-empty"></i></div>
+                                </div>
+
+                                <div class="catitem">
+                                    <!-- Фото -->
+                                    <div class="galleria" style="background-image: url(http://d4f9iohg5m4al.cloudfront.net/original/settlements/499.jpg)"></div>
+
+                                    <div class="cat_price" ng-show="filterHouseShow">$ 1 500 000</div>
+                                    <strong ng-show="!filterHouseShow">10 ярдов</strong>
+                                    <span ng-show="!filterHouseShow">7 предложений</span>
+                                </div>
+
+                                <div class="loca cat_loca" style="cursor:pointer">
+                                    <div class="cat_name"  ng-show="filterHouseShow">Павлово-2&nbsp;</div>
+                                    <div class="geo">Новорижское шоссе, 15 км</div>
+
+                                    <div class="cat_har"  ng-show="filterHouseShow">
+                                        <div class="col-xs-4" style="padding:0; white-space:nowrap;">460<sup style="font-size:10px">М<sup>2</sup></sup></div>
+                                        <div class="col-xs-3" style="padding:0; white-space:nowrap;  text-align:center">31 <sup style="font-size:10px">СОТ</sup></div> 
+                                        <div class="col-xs-5 mebel">Без отделки</div>
+
+                                        <div class="col-xs-12 anons">
+                                            <div>Продаётся дом 460 м<sup>2</sup> в посёлке Павлово-2</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+    
+                            <!-- Блок одного дома -->
+                            <a href="{{href}}" class="col-xs-12 col-sm-6 col-md-4 col-lg-4  pop_pos {{settlementBlockClass}}" style="cursor:default">
+                                <div class="like"  ng-show="filterHouseShow">
+                                    <div class="add-to-note" title="Добавить в избранное"><i class="glyphicon glyphicon-heart-empty"></i></div>
+                                </div>
+
+                                <div class="catitem">
+                                    <!-- Фото -->
+                                    <div class="galleria" style="background-image: url(http://d4f9iohg5m4al.cloudfront.net/original/settlements/499.jpg)"></div>
+
+                                    <div class="cat_price" ng-show="filterHouseShow">$ 1 500 000</div>
+                                    <strong ng-show="!filterHouseShow">10 ярдов</strong>
+                                    <span ng-show="!filterHouseShow">7 предложений</span>
+                                </div>
+
+                                <div class="loca cat_loca" style="cursor:pointer">
+                                    <div class="cat_name"  ng-show="filterHouseShow">Павлово-2&nbsp;</div>
+                                    <div class="geo">Новорижское шоссе, 15 км</div>
+
+                                    <div class="cat_har"  ng-show="filterHouseShow">
+                                        <div class="col-xs-4" style="padding:0; white-space:nowrap;">460<sup style="font-size:10px">М<sup>2</sup></sup></div>
+                                        <div class="col-xs-3" style="padding:0; white-space:nowrap;  text-align:center">31 <sup style="font-size:10px">СОТ</sup></div> 
+                                        <div class="col-xs-5 mebel">Без отделки</div>
+
+                                        <div class="col-xs-12 anons">
+                                            <div>Продаётся дом 460 м<sup>2</sup> в посёлке Павлово-2</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+
+                            <!-- Блок одного дома -->
+                            <a href="{{href}}" class="col-xs-12 col-sm-6 col-md-4 col-lg-4  pop_pos {{settlementBlockClass}}" style="cursor:default">
+                                <div class="like"  ng-show="filterHouseShow">
+                                    <div class="add-to-note" title="Добавить в избранное"><i class="glyphicon glyphicon-heart-empty"></i></div>
+                                </div>
+
+                                <div class="catitem">
+                                    <!-- Фото -->
+                                    <div class="galleria" style="background-image: url(http://d4f9iohg5m4al.cloudfront.net/original/settlements/499.jpg)"></div>
+
+                                    <div class="cat_price" ng-show="filterHouseShow">$ 1 500 000</div>
+                                    <strong ng-show="!filterHouseShow">10 ярдов</strong>
+                                    <span ng-show="!filterHouseShow">7 предложений</span>
+                                </div>
+
+                                <div class="loca cat_loca" style="cursor:pointer">
+                                    <div class="cat_name"  ng-show="filterHouseShow">Павлово-2&nbsp;</div>
+                                    <div class="geo">Новорижское шоссе, 15 км</div>
+
+                                    <div class="cat_har"  ng-show="filterHouseShow">
+                                        <div class="col-xs-4" style="padding:0; white-space:nowrap;">460<sup style="font-size:10px">М<sup>2</sup></sup></div>
+                                        <div class="col-xs-3" style="padding:0; white-space:nowrap;  text-align:center">31 <sup style="font-size:10px">СОТ</sup></div> 
+                                        <div class="col-xs-5 mebel">Без отделки</div>
+
+                                        <div class="col-xs-12 anons">
+                                            <div>Продаётся дом 460 м<sup>2</sup> в посёлке Павлово-2</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+
+                            <!-- Блок одного дома -->
+                            <a href="{{href}}" class="col-xs-12 col-sm-6 col-md-4 col-lg-4  pop_pos {{settlementBlockClass}}" style="cursor:default">
+                                <div class="like"  ng-show="filterHouseShow">
+                                    <div class="add-to-note" title="Добавить в избранное"><i class="glyphicon glyphicon-heart-empty"></i></div>
+                                </div>
+
+                                <div class="catitem">
+                                    <!-- Фото -->
+                                    <div class="galleria" style="background-image: url(http://d4f9iohg5m4al.cloudfront.net/original/settlements/499.jpg)"></div>
+
+                                    <div class="cat_price" ng-show="filterHouseShow">$ 1 500 000</div>
+                                    <strong ng-show="!filterHouseShow">10 ярдов</strong>
+                                    <span ng-show="!filterHouseShow">7 предложений</span>
+                                </div>
+
+                                <div class="loca cat_loca" style="cursor:pointer">
+                                    <div class="cat_name"  ng-show="filterHouseShow">Павлово-2&nbsp;</div>
+                                    <div class="geo">Новорижское шоссе, 15 км</div>
+
+                                    <div class="cat_har"  ng-show="filterHouseShow">
+                                        <div class="col-xs-4" style="padding:0; white-space:nowrap;">460<sup style="font-size:10px">М<sup>2</sup></sup></div>
+                                        <div class="col-xs-3" style="padding:0; white-space:nowrap;  text-align:center">31 <sup style="font-size:10px">СОТ</sup></div> 
+                                        <div class="col-xs-5 mebel">Без отделки</div>
+
+                                        <div class="col-xs-12 anons">
+                                            <div>Продаётся дом 460 м<sup>2</sup> в посёлке Павлово-2</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+    
+                            <!-- Блок одного дома -->
+                            <a href="{{href}}" class="col-xs-12 col-sm-6 col-md-4 col-lg-4  pop_pos {{settlementBlockClass}}" style="cursor:default">
+                                <div class="like"  ng-show="filterHouseShow">
+                                    <div class="add-to-note" title="Добавить в избранное"><i class="glyphicon glyphicon-heart-empty"></i></div>
+                                </div>
+
+                                <div class="catitem">
+                                    <!-- Фото -->
+                                    <div class="galleria" style="background-image: url(http://d4f9iohg5m4al.cloudfront.net/original/settlements/499.jpg)"></div>
+
+                                    <div class="cat_price" ng-show="filterHouseShow">$ 1 500 000</div>
+                                    <strong ng-show="!filterHouseShow">10 ярдов</strong>
+                                    <span ng-show="!filterHouseShow">7 предложений</span>
+                                </div>
+
+                                <div class="loca cat_loca" style="cursor:pointer">
+                                    <div class="cat_name"  ng-show="filterHouseShow">Павлово-2&nbsp;</div>
+                                    <div class="geo">Новорижское шоссе, 15 км</div>
+
+                                    <div class="cat_har"  ng-show="filterHouseShow">
+                                        <div class="col-xs-4" style="padding:0; white-space:nowrap;">460<sup style="font-size:10px">М<sup>2</sup></sup></div>
+                                        <div class="col-xs-3" style="padding:0; white-space:nowrap;  text-align:center">31 <sup style="font-size:10px">СОТ</sup></div> 
+                                        <div class="col-xs-5 mebel">Без отделки</div>
+
+                                        <div class="col-xs-12 anons">
+                                            <div>Продаётся дом 460 м<sup>2</sup> в посёлке Павлово-2</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+
+                            <!-- Блок одного дома -->
+                            <a href="{{href}}" class="col-xs-12 col-sm-6 col-md-4 col-lg-4  pop_pos {{settlementBlockClass}}" style="cursor:default">
+                                <div class="like"  ng-show="filterHouseShow">
+                                    <div class="add-to-note" title="Добавить в избранное"><i class="glyphicon glyphicon-heart-empty"></i></div>
+                                </div>
+
+                                <div class="catitem">
+                                    <!-- Фото -->
+                                    <div class="galleria" style="background-image: url(http://d4f9iohg5m4al.cloudfront.net/original/settlements/499.jpg)"></div>
+
+                                    <div class="cat_price" ng-show="filterHouseShow">$ 1 500 000</div>
+                                    <strong ng-show="!filterHouseShow">10 ярдов</strong>
+                                    <span ng-show="!filterHouseShow">7 предложений</span>
+                                </div>
+
+                                <div class="loca cat_loca" style="cursor:pointer">
+                                    <div class="cat_name"  ng-show="filterHouseShow">Павлово-2&nbsp;</div>
+                                    <div class="geo">Новорижское шоссе, 15 км</div>
+
+                                    <div class="cat_har"  ng-show="filterHouseShow">
+                                        <div class="col-xs-4" style="padding:0; white-space:nowrap;">460<sup style="font-size:10px">М<sup>2</sup></sup></div>
+                                        <div class="col-xs-3" style="padding:0; white-space:nowrap;  text-align:center">31 <sup style="font-size:10px">СОТ</sup></div> 
+                                        <div class="col-xs-5 mebel">Без отделки</div>
+
+                                        <div class="col-xs-12 anons">
+                                            <div>Продаётся дом 460 м<sup>2</sup> в посёлке Павлово-2</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+    
+                            <!-- Блок одного дома -->
+                            <a href="{{href}}" class="col-xs-12 col-sm-6 col-md-4 col-lg-4  pop_pos {{settlementBlockClass}}" style="cursor:default">
+                                <div class="like"  ng-show="filterHouseShow">
+                                    <div class="add-to-note" title="Добавить в избранное"><i class="glyphicon glyphicon-heart-empty"></i></div>
+                                </div>
+
+                                <div class="catitem">
+                                    <!-- Фото -->
+                                    <div class="galleria" style="background-image: url(http://d4f9iohg5m4al.cloudfront.net/original/settlements/499.jpg)"></div>
+
+                                    <div class="cat_price" ng-show="filterHouseShow">$ 1 500 000</div>
+                                    <strong ng-show="!filterHouseShow">10 ярдов</strong>
+                                    <span ng-show="!filterHouseShow">7 предложений</span>
+                                </div>
+
+                                <div class="loca cat_loca" style="cursor:pointer">
+                                    <div class="cat_name"  ng-show="filterHouseShow">Павлово-2&nbsp;</div>
+                                    <div class="geo">Новорижское шоссе, 15 км</div>
+
+                                    <div class="cat_har"  ng-show="filterHouseShow">
+                                        <div class="col-xs-4" style="padding:0; white-space:nowrap;">460<sup style="font-size:10px">М<sup>2</sup></sup></div>
+                                        <div class="col-xs-3" style="padding:0; white-space:nowrap;  text-align:center">31 <sup style="font-size:10px">СОТ</sup></div> 
+                                        <div class="col-xs-5 mebel">Без отделки</div>
+
+                                        <div class="col-xs-12 anons">
+                                            <div>Продаётся дом 460 м<sup>2</sup> в посёлке Павлово-2</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+    
+                            <!-- Блок одного дома -->
+                            <a href="{{href}}" class="col-xs-12 col-sm-6 col-md-4 col-lg-4  pop_pos {{settlementBlockClass}}" style="cursor:default">
+                                <div class="like"  ng-show="filterHouseShow">
+                                    <div class="add-to-note" title="Добавить в избранное"><i class="glyphicon glyphicon-heart-empty"></i></div>
+                                </div>
+
+                                <div class="catitem">
+                                    <!-- Фото -->
+                                    <div class="galleria" style="background-image: url(http://d4f9iohg5m4al.cloudfront.net/original/settlements/499.jpg)"></div>
+
+                                    <div class="cat_price" ng-show="filterHouseShow">$ 1 500 000</div>
+                                    <strong ng-show="!filterHouseShow">10 ярдов</strong>
+                                    <span ng-show="!filterHouseShow">7 предложений</span>
+                                </div>
+
+                                <div class="loca cat_loca" style="cursor:pointer">
+                                    <div class="cat_name"  ng-show="filterHouseShow">Павлово-2&nbsp;</div>
+                                    <div class="geo">Новорижское шоссе, 15 км</div>
+
+                                    <div class="cat_har"  ng-show="filterHouseShow">
+                                        <div class="col-xs-4" style="padding:0; white-space:nowrap;">460<sup style="font-size:10px">М<sup>2</sup></sup></div>
+                                        <div class="col-xs-3" style="padding:0; white-space:nowrap;  text-align:center">31 <sup style="font-size:10px">СОТ</sup></div> 
+                                        <div class="col-xs-5 mebel">Без отделки</div>
+
+                                        <div class="col-xs-12 anons">
+                                            <div>Продаётся дом 460 м<sup>2</sup> в посёлке Павлово-2</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>   
+    
+                        </div>
+                        
+                        <!-- Распорка -->
+                        <div class="col-xs-12 col-md-4 pad55" style="margin-top:45px; padding-left:0"></div>          
+                        <!--text_end--> 
+          
+                    </section>
+                </article>
+            </div>
+        </div>
+    </div>

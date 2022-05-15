@@ -1,0 +1,325 @@
+<div class="featurette sec  object">
+        <div class="container">
+            <div id="showObject" ng-show="!errorShow" ng-init="onLoad()">
+                <div class="row">
+                    <div class="col-md-4 col-lg-3  house-sidebar-wrapper">
+
+                        <div class="sidebar1">
+                            <fieldset>
+
+                                <div class="p1" style="margin-top:5px">Поселок</div>
+                                <div class="p2">{{settlementData.name}}</div>
+
+                                <div class="p1" ng-show="settlementData.pricesFrom.length || settlementData.pricesTo.length">Стоимость объектов</div>
+                                <div class="p3" ng-show="settlementData.pricesFrom.length || settlementData.pricesTo.length"><span ng-show="settlementData.pricesFrom.length">от</span> <strong ng-show="settlementData.pricesFrom.length">$ {{settlementData.pricesFrom}}</strong> <span ng-show="settlementData.pricesTo.length">до</span> <strong ng-show="settlementData.pricesTo.length">$ {{settlementData.pricesTo}}</strong></div>
+
+                                <div class="p4" ng-show="settlementData.townID.length">Населенный пункт:</div> 
+                                <div class="p4" ng-show="settlementData.townID.length"><strong><a href="#/sale/{{settlementData.routeID}}/{{settlementData.townID}}">{{settlementData.town}}</a></strong></div>
+
+                                <div class="p4" ng-show="settlementData.routeKM.length">От МКАД:</div> 
+                                <div class="p4" ng-show="settlementData.routeKM.length"><strong>{{settlementData.routeKM}}  км</strong></div>
+
+                                <div class="p4" ng-show="settlementData.year.length">Год основания:</div> 
+                                <div class="p4" ng-show="settlementData.year.length"><strong>{{settlementData.year}}</strong></div>
+
+                                <div class="p4" ng-show="settlementData.area.length">Площадь:</div> 
+                                <div class="p4" ng-show="settlementData.area.length"><strong>{{settlementData.area}} Га</strong></div>
+
+                                <div class="p4" style="padding-bottom:0" ng-show="settlementData.houses.length">Кол-во домов:</div> 
+                                <div class="p4" style="padding-bottom:0" ng-show="settlementData.houses.length"><strong>{{settlementData.houses}}</strong></div>
+
+
+                            </fieldset>
+                        </div>
+
+                        <div class="sidebar1" ng-show="settlementData.lat.length && settlementData.lng.length">
+                            <fieldset>
+                                <div style="margin:-20px;">
+                                    <div class="map single yandex-map" data-lat="{{settlementData.lat}}" data-lng="{{settlementData.lng}}" data-zoom="10" data-marker="images/marker.png"></div>
+                                </div>
+                            </fieldset>
+                        </div>
+
+                    </div>
+
+                    <article class="col-sm-12 col-md-8 col-lg-9">
+                        <section style="margin-left: -10px; margin-right: -10px;"> 
+
+                            <div class="clearfix"></div>
+
+                            <div style="width:100%; float:left; clear:both; min-height:51px;">
+                                <div class="col-xs-2 col-sm-4 col-md-3 col-lg-3" style="padding-bottom:20px;">
+                                    <a href="{{backHref}}" class="to_find"><span class="arrow"></span> <span class="text">Назад</span></a>
+                                </div>
+
+                                <div class="col-xs-8 col-sm-4 col-md-6 col-lg-6" style="padding-bottom:0px;">
+                                    <div class="pos_h1" style="text-align: center;">
+                                        <div class="h1">{{settlementData.name}}</div>
+                                    </div>
+                                </div>
+        
+                                <div class="col-xs-2 col-sm-4 col-md-3 col-lg-3" style="text-align:right; padding-bottom:0px;">
+                                    <div class="to_find fav obj" id="total_fav">
+                                        <a href="#/chosen/{{privatoData.userID}}">
+                                            <span class="text">Избранное &mdash; {{privatoData.chosenObjects}}</span>
+                                            <span class="symbol star"></span>
+                                        </a>
+                                    </div>
+                                    <!--<a href="#/chosen/{{privatoData.userID}}" class="to_find fav" id="total_fav">
+                                        <div style="padding-left:20px; display:inline-block" class="text">Избранное &mdash; {{privatoData.chosenObjects}}</div>
+                                        <div class="symbol arrow"></div>
+                                    </a>-->
+                                </div>
+                            </div>
+
+                            <div class="clearfix"></div>
+
+                            <!--<div id="objh1" style="padding: 15px 15px 10px 15px;">
+                                <h1>Дом 460 м<sup>2</sup> на участке 31 соток в посёлке Павлово-2</h1>
+                            </div>-->
+
+       
+                            <div class="col-xs-12 galo settlement-galo">
+
+                                <!-- фотогалерея -->
+                                <div id="gallery" class="gallery"  images-loaded="imgLoadedEvents">
+                                    <a href="{{photo.url}}" ng-repeat="photo in settlementData.photos" on-finish-render="ngRepeatFinished">
+                                        <img ng-src="{{photo.url}}" alt="" />
+                                    </a>               
+                                </div>    
+                                <!-- фотогалерея end -->
+
+                            </div>
+
+                            <br class="clearboth"> <!-- Распорка -->
+
+                            <div class="col-xs-12 item_h1">
+                                <div id="h1"><!-- Тут должен быть заголовок --></div>
+                            </div>
+
+                            <br class="clearboth"> <!-- Распорка -->
+
+                            <div class="col-sm-12 col-md-12 opis" style="margin-top: 0px;">
+
+                                {{settlementData.comment}}
+
+                            </div>
+
+                            <div class="clearfix"></div>
+
+                            <div class="sidebar1  double-sidebar">
+                                <fieldset>
+
+                                    <div class="p1" style="margin-top:5px">Поселок</div>
+                                    <div class="p2">{{settlementData.name}}</div>
+
+                                    <div class="p1" ng-show="settlementData.pricesFrom.length || settlementData.pricesTo.length">Стоимость объектов</div>
+                                    <div class="p3" ng-show="settlementData.pricesFrom.length || settlementData.pricesTo.length"><span ng-show="settlementData.pricesFrom.length">от</span> <strong ng-show="settlementData.pricesFrom.length">$ {{settlementData.pricesFrom}}</strong> <span ng-show="settlementData.pricesTo.length">до</span> <strong ng-show="settlementData.pricesTo.length">$ {{settlementData.pricesTo}}</strong></div>
+                                    <div></div>
+
+                                    <div class="p4" ng-show="settlementData.townID.length">Населенный пункт:</div> 
+                                    <div class="p4" ng-show="settlementData.townID.length"><strong><a href="#/sale/{{settlementData.routeID}}/{{settlementData.townID}}">{{settlementData.town}}</a></strong></div>
+                                    <div></div>
+
+                                    <div class="p4" ng-show="settlementData.routeKM.length">От МКАД:</div> 
+                                    <div class="p4" ng-show="settlementData.routeKM.length"><strong>{{settlementData.routeKM}}  км</strong></div>
+                                    <div></div>
+
+                                    <div class="p4" ng-show="settlementData.year.length">Год основания:</div> 
+                                    <div class="p4" ng-show="settlementData.year.length"><strong>{{settlementData.year}}</strong></div>
+                                    <div></div>
+
+                                    <div class="p4">Площадь:</div> 
+                                    <div class="p4"><strong>{{settlementData.area}} Га</strong></div>
+                                    <div></div>
+
+                                    <div class="p4" style="padding-bottom:0" ng-show="settlementData.houses.length">Кол-во домов:</div> 
+                                    <div class="p4" style="padding-bottom:0" ng-show="settlementData.houses.length"><strong>{{settlementData.houses}}</strong></div>
+
+
+                                </fieldset>
+                            </div>
+
+                            <div class="sidebar1 double-sidebar" ng-show="settlementData.lat.length && settlementData.lng.length">
+                                <fieldset>
+
+                                    <div style="margin:-20px;">
+                                        <div class="map single yandex-map" data-lat="{{settlementData.lat}}" data-lng="{{settlementData.lng}}" data-zoom="10" data-marker="images/marker.png"></div>
+                                    </div>
+                                </fieldset>
+                            </div>
+
+                            <div class="clearfix"></div>
+
+                            <div class="col-xs-12">
+                                <ul class="nav nav-pills nav-justified sett_menu">
+                                    <li id="cat1">
+                                        <a href="#sale" class="{{settlementData.saleClass}}" id="showSale">Продажа <sup>{{settlementData.saleNum}}</sup></a>
+                                    </li>
+                                    <li id="cat2">
+                                        <a href="#rent" class="{{settlementData.rentClass}}" id="showRent">Аренда <sup>{{settlementData.rentNum}}</sup></a>
+                                    </li>
+                                    <li id="cat3">
+                                        <a href="#lands" class="{{settlementData.landsClass}}" id="showLands">Участки <sup>{{settlementData.landsNum}}</sup></a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="clearfix"></div>
+
+                            <div class="col-sm-12 col-md-12 col-lg-12">
+
+                                <div style="margin-left: -7px; margin-right: -7px;"> 
+                                    
+                                    <!-- Продажа -->
+                                    <div id="sale" class="settlement-houses-list">
+
+                                        <!-- Блок одного дома -->
+                                        <a href="#/sale/object/{{house.id}}/" class="col-xs-12 col-sm-6 col-md-6 col-lg-4  pop_pos" ng-repeat="house in settlementData.sale">
+                                            <div class="like">
+                                                <div class="add-to-note" title="{{house.chosenTitle}}"><i class="glyphicon {{house.chosenClass}}"></i></div>
+                                            </div>
+
+                                            <div class="catitem">
+
+                                                <!-- Фото (дом) -->
+                                                <div class="object-gallery">
+                                                    <div class="prev fa fa-chevron-left"></div>
+                                                    <div class="next fa fa-chevron-right"></div>
+                                                    <div class="counter"></div>
+                                                    <div class="galleria-wrapper bg-images">
+                                                        <div class="galleria" style="background-image: url({{photo.url}})" ng-repeat="photo in house.photos">
+                                                            <img src="{{photo.url}}" alt="">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="cat_price" ng-show="house.dollarPrice.length">$ {{house.dollarPrice}}</div>
+                                            </div>
+
+                                            <div class="loca cat_loca" style="cursor:pointer">
+                                                <div class="cat_name"  ng-show="settlementData.name.length">{{settlementData.name}}</div>
+                                                <div class="geo" ng-show="settlementData.route.length">{{settlementData.route}}, {{settlementData.routeKM}} км</div>
+
+                                                <div class="cat_har">
+                                                    <div class="col-xs-4" style="padding:0; white-space:nowrap;" ng-show="house.area.length">{{house.area}}<sup style="font-size:10px">М<sup>2</sup></sup></div>
+                                                    <div class="col-xs-3" style="padding:0; white-space:nowrap;  text-align:center" ng-show="house.landArea.length">{{house.landArea}} <sup style="font-size:10px">СОТ</sup></div> 
+                                                    <div class="col-xs-5 mebel">{{house.condition}}</div>
+                                                    <div class="clearfix"></div>
+
+                                                    <div class="col-xs-12 anons" ng-show="house.comment.length">
+                                                        <div>{{house.comment}}</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                
+                                    </div>
+
+                                    <div></div>
+                                    
+                                    <!-- Аренда -->
+                                    <div id="rent" class="settlement-houses-list">
+
+                                        <!-- Блок одного дома -->
+                                        <a href="#/rent/object/{{house.id}}/" class="col-xs-12 col-sm-6 col-md-6 col-lg-4  pop_pos" ng-repeat="house in settlementData.rent">
+                                            <div class="like">
+                                                <div class="add-to-note" title="{{house.chosenTitle}}"><i class="glyphicon {{house.chosenClass}}"></i></div>
+                                            </div>
+
+                                            <div class="catitem">
+                                                <!-- Фото (дом) -->
+                                                <div class="object-gallery">
+                                                    <div class="prev fa fa-chevron-left"></div>
+                                                    <div class="next fa fa-chevron-right"></div>
+                                                    <div class="counter"></div>
+                                                    <div class="galleria-wrapper bg-images">
+                                                        <div class="galleria" style="background-image: url({{photo.url}})" ng-repeat="photo in house.photos">
+                                                            <img src="{{photo.url}}" alt="">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="cat_price" ng-show="house.dollarPrice.length">$ {{house.dollarPrice}}</div>
+                                            </div>
+
+                                            <div class="loca cat_loca" style="cursor:pointer">
+                                                <div class="cat_name"  ng-show="settlementData.name.length">{{settlementData.name}}</div>
+                                                <div class="geo" ng-show="settlementData.route.length">{{settlementData.route}}, {{settlementData.routeKM}} км</div>
+
+                                                <div class="cat_har">
+                                                    <div class="col-xs-4" style="padding:0; white-space:nowrap;" ng-show="house.area.length">{{house.area}}<sup style="font-size:10px">М<sup>2</sup></sup></div>
+                                                    <div class="col-xs-3" style="padding:0; white-space:nowrap;  text-align:center" ng-show="house.landArea.length">{{house.landArea}} <sup style="font-size:10px">СОТ</sup></div> 
+                                                    <div class="col-xs-5 mebel">{{house.condition}}</div>
+                                                    <div class="clearfix"></div>
+
+                                                    <div class="col-xs-12 anons" ng-show="house.comment.length">
+                                                        <div>{{house.comment}}</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+
+                                    </div>
+
+                                    <div></div>
+                                    
+                                    <!-- Участки -->
+                                    <div id="lands" class="settlement-houses-list">
+                                        
+                                        <!-- Блок одного дома -->
+                                        <a href="#/sale/object/{{house.id}}/" class="col-xs-12 col-sm-6 col-md-6 col-lg-4  pop_pos" ng-repeat="house in settlementData.lands" on-finish-render="ngRepeatHousesFinished">
+                                            <div class="like">
+                                                <div class="add-to-note" title="{{house.chosenTitle}}"><i class="glyphicon {{house.chosenClass}}"></i></div>
+                                            </div>
+
+                                            <div class="catitem">
+                                                <!-- Фото (дом) -->
+                                                <div class="object-gallery">
+                                                    <div class="prev fa fa-chevron-left"></div>
+                                                    <div class="next fa fa-chevron-right"></div>
+                                                    <div class="counter"></div>
+                                                    <div class="galleria-wrapper bg-images">
+                                                        <div class="galleria" style="background-image: url({{photo.url}})" ng-repeat="photo in house.photos">
+                                                            <img src="{{photo.url}}" alt="">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="cat_price" ng-show="house.dollarPrice.length">$ {{house.dollarPrice}}</div>
+                                            </div>
+
+                                            <div class="loca cat_loca" style="cursor:pointer">
+                                                <div class="cat_name"  ng-show="settlementData.name.length">{{settlementData.name}}</div>
+                                                <div class="geo" ng-show="settlementData.route.length">{{settlementData.route}}, {{settlementData.routeKM}} км</div>
+
+                                                <div class="cat_har">
+                                                    <div class="col-xs-4" style="padding:0; white-space:nowrap;" ng-show="house.area.length">{{house.area}}<sup style="font-size:10px">М<sup>2</sup></sup></div>
+                                                    <div class="col-xs-3" style="padding:0; white-space:nowrap;  text-align:center" ng-show="house.landArea.length">{{house.landArea}} <sup style="font-size:10px">СОТ</sup></div> 
+                                                    <div class="col-xs-5 mebel">{{house.condition}}</div>
+                                                    <div class="clearfix"></div>
+
+                                                    <div class="col-xs-12 anons" ng-show="house.comment.length">
+                                                        <div>{{house.comment}}</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                
+                                    </div>
+                                    
+                                    <!-- Распорка -->
+                                    <div class="col-xs-12 col-md-4 pad55" style="margin-top:45px; padding-left:0"></div>          
+                                    <!--text_end--> 
+                      
+                                </div>
+                            </div>
+            
+                        </section>
+                    </article>
+
+                </div>
+            </div>
+            <div id="errorLoad" ng-show="errorShow" style="margin-top: 100px; font-size: 20px; font-weight: bold; text-align: center;">{{errorText}}</div>
+        </div>
+    </div>

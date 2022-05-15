@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html lang="ru" ng-app="privatoApplication">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="SKYPE_TOOLBAR" content="SKYPE_TOOLBAR_PARSER_COMPATIBLE"/>
+
+	<!--<base href="/showroom/privato-angular/">-->
+
+	<link rel="icon" href="images/favicon.ico" type="image/x-icon">
+	<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+
+	<meta http-equiv="last-modified" content="">
+	<meta name="Description" content="Продажа и аренда загородной недвижимости">
+	<meta name="Keywords" content="привато, неджвижимость">
+	<meta content="telephone=no" name="format-detection">
+
+	<link rel="stylesheet" href="css/style.css">
+	<!--<link href="css/print.css" rel="stylesheet" media="print">-->
+	    
+	<!--[if lt IE 9]>
+	    <script src="/js/ie8-responsive-file-warning.js"></script>
+
+	    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+	    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+	<![endif]-->
+
+
+	<!-- Общие данные -->
+	<script>
+		var filterObj = {};
+		var pageURL = "";
+		var privatoData = {
+			//ID посетителя
+			"userID":"testUser",
+			//Количество объектов в избранном
+			"chosenObjects": 12,
+			//Список направлений
+			"Routes" : [
+				{ //Направление
+					"id":"Volokolamskoe", //id направления 
+					"nameRus": "Волоколамское", //Название на  русском
+					"nameTranslit":"Volokolamskoe", //Название транслитом
+				},
+				{ //Направление
+					"id":"Dmitrovskoe", //id направления (м.б. не нужен)
+					"nameRus": "Дмитровское", //Название на  русском
+					"nameTranslit":"Dmitrovskoe", //Название транслитом
+				},
+				{ //Направление
+					"id":"Ilinskoe", //id направления (м.б. не нужен)
+					"nameRus": "Ильинское", //Название на  русском
+					"nameTranslit":"Ilinskoe", //Название транслитом
+				},
+			],
+			//Список населённыйх пунктов
+			"Towns" : [
+				{ //Нас. пукт
+					"id":"Mazilovo", //ID пункта 
+					"route":"Volokolamskoe", //Направление
+					"nameRus": "Мазилово", //Название на  русском
+					"nameTranslit":"Mazilovo", //Название транслитом
+				},
+				{ //Нас. пукт
+					"id":"Vinogradovo", //ID пункта 
+					"route":"Dmitrovskoe", //Направление
+					"nameRus": "Виноградово", //Название на  русском
+					"nameTranslit":"Vinogradovo", //Название транслитом
+				},
+				{ //Нас. пукт
+					"id":"Marfino", //ID пункта 
+					"route":"Dmitrovskoe", //Направление
+					"nameRus": "Марфино", //Название на  русском
+					"nameTranslit":"Marfino", //Название транслитом
+				},
+				{ //Нас. пукт
+					"id":"Pestovo", //ID пункта 
+					"route":"Dmitrovskoe", //Направление
+					"nameRus": "Пестово", //Название на  русском
+					"nameTranslit":"Pestovo", //Название транслитом
+				},
+				{ //Нас. пукт
+					"id":"Troitskoe", //ID пункта 
+					"route":"Dmitrovskoe", //Направление
+					"nameRus": "Троицкое", //Название на  русском
+					"nameTranslit":"Troitskoe", //Название транслитом
+				},
+
+				{ //Нас. пукт
+					"id":"Aleksandrovka", //ID пункта 
+					"route":"Ilinskoe", //Направление
+					"nameRus": "Александровка", //Название на  русском
+					"nameTranslit":"Aleksandrovka", //Название транслитом
+				},
+				{ //Нас. пукт
+					"id":"Arkhangelskoe", //ID пункта 
+					"route":"Ilinskoe", //Направление
+					"nameRus": "Архангельское", //Название на  русском
+					"nameTranslit":"Arkhangelskoe", //Название транслитом
+				},
+				{ //Нас. пукт
+					"id":"Buzlanovo", //ID пункта 
+					"route":"Ilinskoe", //Направление
+					"nameRus": "Бузланово", //Название на  русском
+					"nameTranslit":"Buzlanovo", //Название транслитом
+				},
+				{ //Нас. пукт
+					"id":"Glukhovo", //ID пункта 
+					"route":"Ilinskoe", //Направление
+					"nameRus": "Глухово", //Название на  русском
+					"nameTranslit":"Glukhovo", //Название транслитом
+				},
+				{ //Нас. пукт
+					"id":"Gribanovo", //ID пункта 
+					"route":"Ilinskoe", //Направление
+					"nameRus": "Грибаново", //Название на  русском
+					"nameTranslit":"Gribanovo", //Название транслитом
+				},
+				{ //Нас. пукт
+					"id":"Dubtsy", //ID пункта 
+					"route":"Ilinskoe", //Направление
+					"nameRus": "Дубцы", //Название на  русском
+					"nameTranslit":"Dubtsy", //Название транслитом
+				},
+				{ //Нас. пукт
+					"id":"Zhukovkva", //ID пункта 
+					"route":"Ilinskoe", //Направление
+					"nameRus": "Жуковка", //Название на  русском
+					"nameTranslit":"Zhukovkva", //Название транслитом
+				},
+				{ //Нас. пукт
+					"id":"Zakharkovo", //ID пункта 
+					"route":"Ilinskoe", //Направление
+					"nameRus": "Захарково", //Название на  русском
+					"nameTranslit":"Zakharkovo", //Название транслитом
+				},
+				{ //Нас. пукт
+					"id":"Ilinskoe", //ID пункта 
+					"route":"Ilinskoe", //Направление
+					"nameRus": "Ильинское", //Название на  русском
+					"nameTranslit":"Ilinskoe", //Название транслитом
+				},
+				{ //Нас. пукт
+					"id":"PertovoDalnee", //ID пункта 
+					"route":"Ilinskoe", //Направление
+					"nameRus": "Петрово-Дальнее", //Название на  русском
+					"nameTranslit":"Pertovo-Dalnee", //Название транслитом
+				},
+				{ //Нас. пукт
+					"id":"Petrovsky", //ID пункта 
+					"route":"Ilinskoe", //Направление
+					"nameRus": "Петровский", //Название на  русском
+					"nameTranslit":"Petrovsky", //Название транслитом
+				},
+				{ //Нас. пукт
+					"id":"Timoshkino", //ID пункта 
+					"route":"Ilinskoe", //Направление
+					"nameRus": "Тимошкино", //Название на  русском
+					"nameTranslit":"Timoshkino", //Название транслитом
+				},
+				{ //Нас. пукт
+					"id":"Ubory", //ID пункта 
+					"route":"Ilinskoe", //Направление
+					"nameRus": "Уборы", //Название на  русском
+					"nameTranslit":"Ubory", //Название транслитом
+				},
+				{ //Нас. пукт
+					"id":"Usovo", //ID пункта 
+					"route":"Ilinskoe", //Направление
+					"nameRus": "Усово", //Название на  русском
+					"nameTranslit":"Usovo", //Название транслитом
+				},
+			],
+			//Список коттеджных посёлков
+			"Settlements":[
+				{ //Коттеджный посёлок
+					"id": "Gribki", //id посёлка - 100% нужен
+					"townID":"Vinogradovo", //ID нас.пункта
+					"routeID":"Dmitrovskoe", //ID направления
+					"nameRus": "Грибки", //Название на  русском
+					"nameTranslit":"Gribki", //Название транслитом
+				},
+				{ //Коттеджный посёлок
+					"id": "Povedniki", //id посёлка - 100% нужен
+					"townID":"Vinogradovo", //ID нас.пункта
+					"routeID":"Dmitrovskoe", //ID направления
+					"nameRus": "Поведники", //Название на  русском
+					"nameTranslit":"Povedniki", //Название транслитом
+				},
+				{ //Коттеджный посёлок
+					"id": "ZelenyjMys", //id посёлка - 100% нужен
+					"townID":"Marfino", //ID нас.пункта
+					"routeID":"Dmitrovskoe", //ID направления
+					"nameRus": "Зелёный мыс", //Название на  русском
+					"nameTranslit":"ZelenyjMys", //Название транслитом
+				},
+				{ //Коттеджный посёлок
+					"id": "Novoaleksandrovo", //id посёлка - 100% нужен
+					"townID":"Troitskoe", //ID нас.пункта
+					"routeID":"Dmitrovskoe", //ID направления
+					"nameRus": "Новоалександрово", //Название на  русском
+					"nameTranslit":"Novoaleksandrovo", //Название транслитом
+				},
+
+				{ //Коттеджный посёлок
+					"id": "Aleksandrovka", //id посёлка - 100% нужен
+					"townID":"Aleksandrovka", //ID нас.пункта
+					"routeID":"Ilinskoe", //ID направления
+					"nameRus": "Александровка", //Название на  русском
+					"nameTranslit":"Aleksandrovka", //Название транслитом
+				},
+				{ //Коттеджный посёлок
+					"id": "Dacha-Zila", //id посёлка - 100% нужен
+					"townID":"Aleksandrovka", //ID нас.пункта
+					"routeID":"Ilinskoe", //ID направления
+					"nameRus": "Дача ЗИЛа", //Название на  русском
+					"nameTranslit":"Dacha-Zila", //Название транслитом
+				},
+				{ //Коттеджный посёлок
+					"id": "Niva", //id посёлка - 100% нужен
+					"townID":"Aleksandrovka", //ID нас.пункта
+					"routeID":"Ilinskoe", //ID направления
+					"nameRus": "Нива", //Название на  русском
+					"nameTranslit":"Niva", //Название транслитом
+				},
+				{ //Коттеджный посёлок
+					"id":"Petrovsky", //id посёлка - 100% нужен
+					"townID":"Aleksandrovka", //ID нас.пункта
+					"routeID":"Ilinskoe", //ID направления
+					"nameRus": "Петровский", //Название на  русском
+					"nameTranslit":"Petrovsky", //Название транслитом
+				},
+
+				{ //Коттеджный посёлок
+					"id": "ArkhangelskoeUPDP", //id посёлка - 100% нужен
+					"townID":"Arkhangelskoe", //ID нас.пункта
+					"routeID":"Ilinskoe", //ID направления
+					"nameRus": "Архангельское УПДП", //Название на  русском
+					"nameTranslit":"ArkhangelskoeUPDP", //Название транслитом
+				},
+				{ //Коттеджный посёлок
+					"id": "Arkhangelskoe-2", //id посёлка - 100% нужен
+					"townID":"Arkhangelskoe", //ID нас.пункта
+					"routeID":"Ilinskoe", //ID направления
+					"nameRus": "Архангельское-2", //Название на  русском
+					"nameTranslit":"Arkhangelskoe-2", //Название транслитом
+				},
+				{ //Коттеджный посёлок
+					"id": "Gorki-2", //id посёлка - 100% нужен
+					"townID":"Arkhangelskoe", //ID нас.пункта
+					"routeID":"Ilinskoe", //ID направления
+					"nameRus": "Горки-6", //Название на  русском
+					"nameTranslit":"Gorki-2", //Название транслитом
+				},
+				{ //Коттеджный посёлок
+					"id": "Ilinsky-Kvartal", //id посёлка - 100% нужен
+					"townID":"Arkhangelskoe", //ID нас.пункта
+					"routeID":"Ilinskoe", //ID направления
+					"nameRus": "Ильинский Квартал", //Название на  русском
+					"nameTranslit":"Ilinsky-Kvartal", //Название транслитом
+				},
+				{ //Коттеджный посёлок
+					"id": "Usadbi-Arkhangelskoe", //id посёлка - 100% нужен
+					"townID":"Arkhangelskoe", //ID нас.пункта
+					"routeID":"Ilinskoe", //ID направления
+					"nameRus": "Усадьбы Архангельское", //Название на  русском
+					"nameTranslit":"Usadbi-Arkhangelskoe", //Название транслитом
+				},
+
+				{ //Коттеджный посёлок
+					"id": "Prozorovo", //id посёлка - 100% нужен
+					"townID":"Buzlanovo", //ID нас.пункта
+					"routeID":"Ilinskoe", //ID направления
+					"nameRus": "Прозорово", //Название на  русском
+					"nameTranslit":"Prozorovo", //Название транслитом
+				},
+				{ //Коттеджный посёлок
+					"id": "Rubin-Esteit", //id посёлка - 100% нужен
+					"townID":"Buzlanovo", //ID нас.пункта
+					"routeID":"Ilinskoe", //ID направления
+					"nameRus": "Рубин Эстейт", //Название на  русском
+					"nameTranslit":"Rubin-Esteit", //Название транслитом
+				},
+
+				{ //Коттеджный посёлок
+					"id": "Veteran", //id посёлка - 100% нужен
+					"townID":"Glukhovo", //ID нас.пункта
+					"routeID":"Ilinskoe", //ID направления
+					"nameRus": "Ветеран", //Название на  русском
+					"nameTranslit":"Veteran", //Название транслитом
+				},
+				{ //Коттеджный посёлок
+					"id": "Ilinka", //id посёлка - 100% нужен
+					"townID":"Glukhovo", //ID нас.пункта
+					"routeID":"Ilinskoe", //ID направления
+					"nameRus": "Ильинка", //Название на  русском
+					"nameTranslit":"Ilinka", //Название транслитом
+				},
+			],
+			//Список типов недвижимости
+			"estatesTypes": [
+				{
+					"value":"apartment",
+					"name":"Апартаменты"
+				},
+				{
+					"value":"land",
+					"name":"Земельный участок"
+				},
+				{
+					"value":"kvartira",
+					"name":"Квартира"
+				},
+				{
+					"value":"townhouse",
+					"name":"Таунхаус"
+				},
+				{
+					"value":"house",
+					"name":"Частный дом"
+				},
+			],
+			//Список состояний
+			"estatesCondition": [
+				{
+					"value":"4",
+					"name":"Без мебели"
+				},
+				{
+					"value":"1",
+					"name":"Без отделки"
+				},
+				{
+					"value":"3",
+					"name":"Мебелирован"
+				},
+				{
+					"value":"6",
+					"name":"Не достроен"
+				},
+				{
+					"value":"7",
+					"name":"Под финишную отделку"
+				},
+				{
+					"value":"2",
+					"name":"С отделкой"
+				},
+			],
+			//Популярные посёлки
+			"popularSettlements": [
+				//Всего 12 популярных. Первый по списку показывается большим, второй - вытянутым. Остальные стандартные
+				{
+					"id": "Gribki", //id посёлка - 100% нужен
+					"townID":"Vinogradovo", //ID нас.пункта
+					"routeID":"Dmitrovskoe", //ID направления
+					"routeName": "Дмитровское шоссе", //Название дороги на русском
+					"routeKM": 12, //Расстояние в километрах
+					"nameRus": "Грибки", //Название на  русском
+					"nameTranslit":"Gribki", //Название транслитом,
+					"photo": "images/houses/959-7.jpg", //Заглавная фотография
+					"housesNum" : "58", //Количество домов
+				},
+				{	
+					"id": "Povedniki", //id посёлка - 100% нужен
+					"townID":"Vinogradovo", //ID нас.пункта
+					"routeID":"Dmitrovskoe", //ID направления
+					"routeName": "Дмитровское шоссе", //Название дороги на русском
+					"routeKM": 14, //Расстояние в километрах
+					"nameRus": "Поведники", //Название на  русском
+					"nameTranslit":"Povedniki", //Название транслитом
+					"photo": "images/houses/959-7.jpg", //Заглавная фотография
+					"housesNum" : "68", //Количество домов
+				},
+
+				{
+					"id": "ZelenyjMys", //id посёлка - 100% нужен
+					"townID":"Marfino", //ID нас.пункта
+					"routeID":"Dmitrovskoe", //ID направления
+					"routeName": "Дмитровское шоссе", //Название дороги на русском
+					"routeKM": 10, //Расстояние в километрах
+					"nameRus": "Зелёный мыс", //Название на  русском
+					"nameTranslit":"ZelenyjMys", //Название транслитом
+					"photo": "images/houses/959-7.jpg", //Заглавная фотография
+					"housesNum" : "18", //Количество домов
+				},
+
+				{ //Коттеджный посёлок
+					"id": "Novoaleksandrovo", //id посёлка - 100% нужен
+					"townID":"Troitskoe", //ID нас.пункта
+					"routeID":"Dmitrovskoe", //ID направления
+					"routeName": "Дмитровское шоссе", //Название дороги на русском
+					"routeKM": 11, //Расстояние в километрах
+					"nameRus": "Новоалександрово", //Название на  русском
+					"nameTranslit":"Novoaleksandrovo", //Название транслитом
+					"photo": "images/houses/959-7.jpg", //Заглавная фотография
+					"housesNum" : "58", //Количество домов
+				},
+
+				{ //Коттеджный посёлок
+					"id": "Aleksandrovka", //id посёлка - 100% нужен
+					"townID":"Aleksandrovka", //ID нас.пункта
+					"routeID":"Ilinskoe", //ID направления
+					"routeName": "Ильинское шоссе", //Название дороги на русском
+					"routeKM": 11, //Расстояние в километрах
+					"nameRus": "Александровка", //Название на  русском
+					"nameTranslit":"Aleksandrovka", //Название транслитом
+					"photo": "images/houses/959-7.jpg", //Заглавная фотография
+					"housesNum" : "58", //Количество домов
+				},
+				{ //Коттеджный посёлок
+					"id": "Dacha-Zila", //id посёлка - 100% нужен
+					"townID":"Aleksandrovka", //ID нас.пункта
+					"routeID":"Ilinskoe", //ID направления
+					"routeName": "Ильинское шоссе", //Название дороги на русском
+					"routeKM": 11, //Расстояние в километрах
+					"nameRus": "Дача ЗИЛа", //Название на  русском
+					"nameTranslit":"Dacha-Zila", //Название транслитом
+					"photo": "images/houses/959-7.jpg", //Заглавная фотография
+					"housesNum" : "58", //Количество домов
+				},
+				{ //Коттеджный посёлок
+					"id": "Niva", //id посёлка - 100% нужен
+					"townID":"Aleksandrovka", //ID нас.пункта
+					"routeID":"Ilinskoe", //ID направления
+					"routeName": "Ильинское шоссе", //Название дороги на русском
+					"routeKM": 11, //Расстояние в километрах
+					"nameRus": "Нива", //Название на  русском
+					"nameTranslit":"Niva", //Название транслитом
+					"housesNum" : "58", //Количество домов
+					"photo": "images/houses/959-7.jpg", //Заглавная фотография
+				},
+				{ //Коттеджный посёлок
+					"id": "Petrovsky", //id посёлка - 100% нужен
+					"townID":"Aleksandrovka", //ID нас.пункта
+					"routeID":"Ilinskoe", //ID направлени
+					"routeName": "Ильинское шоссе", //Название дороги на русском
+					"routeKM": 11, //Расстояние в километрах
+					"nameRus": "Петровский", //Название на  русском
+					"nameTranslit":"Petrovsky", //Название транслитом
+					"housesNum" : "58", //Количество домов
+					"photo": "images/houses/959-7.jpg", //Заглавная фотография
+				},
+				{ //Коттеджный посёлок
+					"id": "ArkhangelskoeUPDP", //id посёлка - 100% нужен
+					"townID":"Arkhangelskoe", //ID нас.пункта
+					"routeID":"Ilinskoe", //ID направления
+					"routeName": "Ильинское шоссе", //Название дороги на русском
+					"routeKM": 11, //Расстояние в километрах
+					"nameRus": "Архангельское УПДП", //Название на  русском
+					"nameTranslit":"ArkhangelskoeUPDP", //Название транслитом
+					"housesNum" : "58", //Количество домов
+					"photo": "images/houses/959-7.jpg", //Заглавная фотографи
+				},
+				{ //Коттеджный посёлок
+					"id": "Arkhangelskoe-2", //id посёлка - 100% нужен
+					"townID":"Arkhangelskoe", //ID нас.пункта
+					"routeID":"Ilinskoe", //ID направления
+					"routeName": "Ильинское шоссе", //Название дороги на русском
+					"routeKM": 11, //Расстояние в километрах
+					"nameRus": "Архангельское-2", //Название на  русском
+					"nameTranslit":"Arkhangelskoe-2", //Название транслитом
+					"housesNum" : "58", //Количество домов
+					"photo": "images/houses/959-7.jpg", //Заглавная фотографи
+				},
+				{ //Коттеджный посёлок
+					"id": "Gorki-2", //id посёлка - 100% нужен
+					"townID":"Arkhangelskoe", //ID нас.пункта
+					"routeID":"Ilinskoe", //ID направления
+					"routeName": "Ильинское шоссе", //Название дороги на русском
+					"routeKM": 11, //Расстояние в километрах
+					"nameRus": "Горки-6", //Название на  русском
+					"nameTranslit":"Gorki-2", //Название транслитом
+					"housesNum" : "58", //Количество домов
+					"photo": "images/houses/959-7.jpg", //Заглавная фотографи
+				},
+				{ //Коттеджный посёлок
+					"id": "Ilinsky-Kvartal", //id посёлка - 100% нужен
+					"townID":"Arkhangelskoe", //ID нас.пункта
+					"routeID":"Ilinskoe", //ID направления
+					"routeName": "Ильинское шоссе", //Название дороги на русском
+					"routeKM": 11, //Расстояние в километрах
+					"nameRus": "Ильинский Квартал", //Название на  русском
+					"nameTranslit":"Ilinsky-Kvartal", //Название транслитом
+					"housesNum" : "58", //Количество домов
+					"photo": "images/houses/959-7.jpg", //Заглавная фотографи
+				},
+				{ //Коттеджный посёлок
+					"id": "Usadbi-Arkhangelskoe", //id посёлка - 100% нужен
+					"townID":"Arkhangelskoe", //ID нас.пункта
+					"routeID":"Ilinskoe", //ID направления
+					"routeName": "Ильинское шоссе", //Название дороги на русском
+					"routeKM": 11, //Расстояние в километрах
+					"nameRus": "Усадьбы Архангельское", //Название на  русском
+					"nameTranslit":"Usadbi-Arkhangelskoe", //Название транслитом
+					"housesNum" : "58", //Количество домов
+					"photo": "images/houses/959-7.jpg", //Заглавная фотографи
+				},
+			],
+			//Популярные направления
+			"popularRoutes":[
+				//Всего - до 8 направлений, в каждом - до 5 населённых пунктов
+				{
+					"id": "Dmitrovskoe",
+					"nameRus":"Дмитровское",
+					"towns": [
+						{
+							"id": "Vinogradovo",
+							"nameRus":"Виноградово",
+							"nameTranslit":"Vinogradovo",
+							"housesNum": "58"
+						},
+						{
+							"id": "Marfino",
+							"nameRus":"Марфино",
+							"nameTranslit":"Marfino",
+							"housesNum": "58"
+						},
+						{
+							"id": "Vinogradovo",
+							"nameRus":"Виноградово",
+							"nameTranslit":"Vinogradovo",
+							"housesNum": "58"
+						},
+						{
+							"id": "Marfino",
+							"nameRus":"Марфино",
+							"nameTranslit":"Marfino",
+							"housesNum": "58"
+						},
+						{
+							"id": "Vinogradovo",
+							"nameRus":"Виноградово",
+							"nameTranslit":"Vinogradovo",
+							"housesNum": "58"
+						},
+					]
+				},
+				{
+					"id":"Ilinskoe",
+					"nameRus":"Ильинское",
+					"towns": [
+						{
+							"id": "Aleksandrovka",
+							"nameRus":"Александровка",
+							"nameTranslit":"Aleksandrovka",
+							"housesNum": "58"
+						},
+						{
+							"id": "Timoshkino",
+							"nameRus":"Тимошкино",
+							"nameTranslit":"Timoshkino",
+							"housesNum": "68"
+						},
+						{
+							"id": "Petrovsky",
+							"nameRus":"Петровский",
+							"nameTranslit":"Petrovsky",
+							"housesNum": "58"
+						},
+						{
+							"id": "Zakharkovo",
+							"nameRus":"Захарково",
+							"nameTranslit":"Zakharkovo",
+							"housesNum": "58"
+						},
+						{
+							"id": "Arkhangelskoe",
+							"nameRus":"Архангельское",
+							"nameTranslit":"Arkhangelskoe",
+							"housesNum": "58"
+						},
+					]
+				},
+				{
+					"id": "Dmitrovskoe",
+					"nameRus":"Дмитровское",
+					"towns": [
+						{
+							"id": "Vinogradovo",
+							"nameRus":"Виноградово",
+							"nameTranslit":"Vinogradovo",
+							"housesNum": "58"
+						},
+						{
+							"id": "Marfino",
+							"nameRus":"Марфино",
+							"nameTranslit":"Marfino",
+							"housesNum": "58"
+						},
+						{
+							"id": "Vinogradovo",
+							"nameRus":"Виноградово",
+							"nameTranslit":"Vinogradovo",
+							"housesNum": "58"
+						},
+						{
+							"id": "Marfino",
+							"nameRus":"Марфино",
+							"nameTranslit":"Marfino",
+							"housesNum": "58"
+						},
+						{
+							"id": "Vinogradovo",
+							"nameRus":"Виноградово",
+							"nameTranslit":"Vinogradovo",
+							"housesNum": "58"
+						},
+					]
+				},
+				{
+					"id":"Ilinskoe",
+					"nameRus":"Ильинское",
+					"towns": [
+						{
+							"id": "Aleksandrovka",
+							"nameRus":"Александровка",
+							"nameTranslit":"Aleksandrovka",
+							"housesNum": "58"
+						},
+						{
+							"id": "Timoshkino",
+							"nameRus":"Тимошкино",
+							"nameTranslit":"Timoshkino",
+							"housesNum": "58"
+						},
+						{
+							"id": "Petrovsky",
+							"nameRus":"Петровский",
+							"nameTranslit":"Petrovsky",
+							"housesNum": "58"
+						},
+						{
+							"id": "Zakharkovo",
+							"nameRus":"Захарково",
+							"nameTranslit":"Zakharkovo",
+							"housesNum": "58"
+						},
+						{
+							"id": "Arkhangelskoe",
+							"nameRus":"Архангельское",
+							"nameTranslit":"Arkhangelskoe",
+							"housesNum": "58"
+						},
+					]
+				},
+			]
+
+		};
+	</script>
+
+	<script type="text/javascript" src="js/privatoApplication/soapclient.js"></script>
+	
+	<script src="js/angular/angular.js"></script>
+	<script src="js/angular/angular-route.js"></script>
+
+	<script type="text/javascript" src="js/privatoApplication/privatoApplication.js"></script>
+
+	<script type="text/javascript" src="js/privatoApplication/factories.js"></script>
+	<script type="text/javascript" src="js/privatoApplication/controllers.js"></script>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+
+	<script src="js/bootstrap/bootstrap.min.js"></script>
+	<script src="js/bootstrap/bootstrap-select/bootstrap-select.js"></script>
+
+	<script type="text/javascript" src="js/plugins/jgallery.min.js"></script> 
+	<script type="text/javascript" src="js/plugins/touchswipe.min.js"></script>
+	<script type="text/javascript" src="js/plugins/jquery.cycle.all.js"></script> 
+
+	<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+
+	<script src="js/plugins/jquery.json-2.3.min.js"></script>
+
+	<script src="js/script.js"></script>
+	<script src="js/filter.js"></script>
+	  
+	<title></title>
+</head>
+<!-- NAVBAR
+================================================== -->
+<body>
+<!-- Google Tag Manager 
+<noscript>
+<iframe src="//www.googletagmanager.com/ns.html?id=GTM-PQMX7T"
+	height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+	new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+	j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+	'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+	})(window,document,'script','dataLayer','GTM-PQMX7T');</script> 
+
+	-->
+<!-- End Google Tag Manager -->
+
+	<!-- Навигация -->
+	<div class="navbar-wrapper">
+	  	<div class="navbar navbar-static-top" role="navigation">
+	    	<div class="container">
+	      		<div class="row">
+	      			<button class="search navbar-search"></button>
+	      			<a href="tel:+74951355235" class="phone"></a>
+	        		<div class="toptel">+7 495 135 52 35</div>
+
+	        		<div class="navbar-header">
+			          	<button type="button" class="navbar-toggle"> 
+				          	<span class="sr-only">Toggle navigation</span> 
+				          	<span class="icon-bar"></span> 
+				          	<span class="icon-bar"></span> 
+				          	<span class="icon-bar"></span> 
+			          	</button>
+			          	<a href="/" class="navbar-toggle-logo"></a>
+	          			<a class="navbar-brand" href="/">
+	          				<img src="images/logo.png" alt="">
+	          			</a> 
+	          		</div>
+	        		<div class="navbar-collapse">
+	        			<a href="/" class="navbar-collapse-logo">
+	        				<img src="images/logo-dark.png" alt="">
+	        			</a>
+			          	<ul class="nav navbar-nav">
+				            <li><a href="#/sale">Продажа</a><span>1093</span></li>
+				            <li><a href="#/rent">Аренда</a><span>42</span></li>
+				            <li><a href="#/settlements">Поселки</a><span>334</span></li>
+				            <li><a href="#/owners">Собственникам</a></li>
+				            <li><a href="#/contacts">Контакты</a></li>
+				            <li class="mobile-only"><a href="#/chosen/testUser">Избранное</a><span>9</span></li>
+			          	</ul>
+
+			          	<div class="navbar-collapse-footer">
+			          		<ul>
+				          		<li class="soc_fb">
+				          			<a href="https://www.facebook.com/PrivatoEstate/" target="_blank"><span>Facebook</span></a>   
+				          		</li>
+				          		<li class="soc_ig">
+	                            	<a href="https://www.instagram.com/privatoestate/" target="_blank"><span>Instagram</span></a> 
+	                            </li>
+	                            <li class="soc_yt">
+	                            	<a href="#" target="_blank"><span>Youtube</span></a> 
+	                            </li>
+	                        </ul>
+                            <div class="clearfix"></div>
+                            <div class="copyright">
+                            	PRIVATO ESTATE BOUTIQUE AGENCY 
+								<div>© 2015 – 2016</div>
+                            </div>
+                        </div>
+	        		</div>
+					<!-- Фильтр в шапке -->
+	        		<div class="sidebar1 nav-filter"> 
+	        			<!--<a href="javascript:void(0)" class="but_rent r_active but_buy_button">Продажа</a> 
+	        			<a href="javascript:void(0)" class="but_rent but_rent_button" >Аренда</a>-->
+
+	                    <form action="" method="POST" enctype="multipart/form-data" class="filter-form">
+
+				            <!--<input name="search" value="catalog" type="hidden">
+				            <input name="goto" value="main" type="hidden">-->
+				            <input name="rent" value="sale" type="hidden" class="form-rent">
+
+				            <fieldset>
+					            <div class="styled-select slate2  mobile-select"> <!-- selectpicker -->
+					            	<div class="select-wrapper">
+					                	<select name="routes" class="select-route" title="Направление">
+					                		<option value="undefined" selected>Направление</option>
+					                        <option value="Volokolamskoe">Волоколамское</option>
+					                        <option value="Dmitrovskoe">Дмитровское</option>
+					                        <option value="Ilinskoe">Ильинское</option>
+					                    </select>
+					                </div>
+					            </div>
+
+				              	<div class="styled-select slate2 mobile-select">
+				              		<div class="select-wrapper">
+					                	<select name="settlements" class="select-town" title="Населенный пункт">
+					                		<option value="undefined" selected>Населённый пункт</option>
+
+					                        <option value="Mazilovo">Мазилово</option>
+
+					                        <option value="Vinogradovo">Виноградово</option>
+					                        <option value="Marfino">Марфино</option>
+					                        <option value="Pestovo">Пестово</option>
+					                        <option value="Troitskoe">Троицкое</option>
+
+					                        <option value="Aleksandrovka">Александровка</option>
+					                        <option value="Arkhangelskoe">Архангельское</option>
+					                        <option value="Buzlanovo">Бузланово</option>
+					                        <option value="Glukhovo">Глухово</option>
+					                        <option value="Gribanovo">Грибаново</option>
+					                        <option value="Dubtsy">Дубцы</option>
+					                        <option value="Zhukovkva">Жуковка</option>
+					                        <option value="Zakharkovo">Захарково</option>
+					                        <option value="Ilinskoe">Ильинское</option>
+					                        <option value="Pertovo-Dalnee">Петрово-Дальнее</option>
+					                        <option value="Petrovsky">Петровский</option>
+					                        <option value="Timoshkino">Тимошкино</option>
+					                        <option value="Ubory">Уборы</option>
+					                        <option value="Usovo">Усово</option>
+					                    </select>
+					                 </div>
+				              	</div>
+
+				              	<div class="styled-select slate2 mobile-select">
+				              		<div class="select-wrapper">
+					                	<select name="villages" class="select-settlements" title="Коттеджный поселок">
+
+					                		<option value="undefined" selected>Коттеджный посёлок</option>
+
+					                        <option value="Gribki">Грибки</option>
+					                        <option value="Povedniki">Поведники</option>
+
+					                        <option value="ZelenyjMys">Зелёный мыс</option>
+					                        <option value="Novoaleksandrovo">Новоалександрово</option>
+
+					                        <option value="Aleksandrovka">Александровка</option>
+					                        <option value="Dacha-Zila">Дача ЗИЛа</option>
+					                        <option value="Niva">Нива</option>
+					                        <option value="Petrovsky">Петровский</option>
+
+					                        <option value="ArkhangelskoeUPDP">Архангельское УПДП</option>
+					                        <option value="Arkhangelskoe-2">Архангельское-2</option>
+					                        <option value="Gorki-2">Горки-2</option>
+					                        <option value="Ilinsky-Kvartal">Ильинский Квартал</option>
+					                        <option value="Usadbi-Arkhangelskoe">Усадьбы Архангельское</option>
+
+					                        <option value="Prozorovo">Прозорово</option>
+					                        <option value="Rubin-Esteit">Рубин Эстейт</option>
+
+					                        <option value="Veteran">Ветеран</option>
+					                        <option value="Ilinka">Ильинка</option>
+					                    </select>
+					                </div>
+				              	</div>
+
+				              	<div class="styled-select slate2 mobile-select">
+				              		<div class="select-wrapper">
+					                	<select name="types" title="Тип недвижимости" >
+					                		<option value="undefined" selected>Тип недвижимости</option>
+					                        <option value="apartment">Аппартаменты</option>
+					                        <option value="land">Земельный участок</option>
+					                        <option value="kvartira">Квартира</option>
+					                        <option value="townhouse">Таунхаус</option>
+					                        <option value="house">Частный дом</option>
+					                    </select>
+					                </div>
+				              	</div>
+				              	<div class="styled-select slate2 mobile-select">
+				              		<div class="select-wrapper">
+				                	<select name="sost" title="Состояние">
+				                		<option value="undefined" selected>Состояние</option>
+				                        <option value="4">Без мебели</option>
+				                        <option value="1">Без отделки</option>
+				                        <option value="3">Мебелирован</option>
+					                        <option value="6">Не достроен</option>
+					                        <option value="7">Под финишную отделку</option>
+					                        <option value="2">С отделкой</option>
+					                    </select>
+					                </div>
+				              	</div>
+
+				              	<div class="row">
+					                <div class="col-xs-4"><nobr>МКАД,  км</nobr></div>
+					                <div class="col-xs-4 from_f">
+					                  	<div class="styled-select slate2 snumber mobile-select">
+					                  		<div class="select-wrapper">
+						                    	<select name="mkadfrom" title="от">
+						                    		<option value="undefined" selected>от</option>
+						                    		<option value="0">0</option>
+						                    		<option value="5">5</option>
+						                    		<option value="10">10</option>
+						                    		<option value="15">15</option>
+						                    		<option value="20">20</option>
+						                    		<option value="25">25</option>
+						                    		<option value="30">30</option>
+						                    		<option value="35">35</option>                    
+						                    	</select>
+						                    </div>
+					                  	</div>
+					                </div>
+					                <div class="col-xs-4 to_f">
+					                  	<div class="styled-select slate2 snumber mobile-select">
+					                  		<div class="select-wrapper">
+						                    	<select name="mkadto" title="до">
+						                    		<option value="undefined" selected>до</option>
+						                    		<option value="5">5</option>
+						                    		<option value="10">10</option>
+						                    		<option value="15">15</option>
+						                    		<option value="20">20</option>
+						                    		<option value="25">25</option>
+						                    		<option value="30">30</option>
+						                    		<option value="35">35</option>
+						                    		<option value="40">40</option>
+						                    	</select>
+						                    </div>
+					                  	</div>
+					                </div>
+				              	</div>
+
+				              	<div class="row">
+					                <div class="col-xs-4"><nobr>Площадь, м<sup>2</sup></nobr></div>
+					                <div class="col-xs-4 from_f">
+					                  	<div class="styled-select slate2 snumber mobile-select">
+					                  		<div class="select-wrapper">
+						                    	<select name="squarefrom" title="от">
+						                    		<option value="undefined" selected>от</option>
+						                    		<option value="200">200</option>
+						                    		<option value="300">300</option>
+						                    		<option value="400">400</option>
+						                    		<option value="500">500</option>
+						                    		<option value="600">600</option>
+						                    		<option value="700">700</option>
+						                    		<option value="800">800</option>
+						                    		<option value="900">900</option>
+						                    		<option value="1000">1000</option>
+						                    		<option value="1200">1200</option>
+						                    	</select>
+						                    </div>
+					                  	</div>
+					                </div>
+					                <div class="col-xs-4 to_f">
+					                  	<div class="styled-select slate2 snumber mobile-select">
+					                  		<div class="select-wrapper">
+						                    	<select name="squareto" title="до">
+						                    		<option value="undefined" selected>до</option>
+						                    		<option value="300">300</option>
+						                    		<option value="400">400</option>
+						                    		<option value="500">500</option>
+						                    		<option value="600">600</option>
+						                    		<option value="700">700</option>
+						                    		<option value="800">800</option>
+						                    		<option value="900">900</option>
+						                    		<option value="1000">1000</option>
+						                    		<option value="1200">1200</option>
+						                    		<option value="1500">1500</option>
+						                    	</select>
+						                    </div>
+					                  	</div>
+					                </div>
+				              	</div>
+
+				              	<div class="row">
+					                <div class="col-xs-4"><nobr>Участок, сот.</nobr></div>
+					                <div class="col-xs-4 from_f">
+						                <div class="styled-select slate2 snumber mobile-select">
+						                	<div class="select-wrapper">
+							                    <select name="uchfrom" title="от">
+							                    	<option value="undefined" selected>от</option>
+							                    	<option value="10">10</option>
+							                    	<option value="15">15</option>
+							                    	<option value="20">20</option>
+							                    	<option value="25">25</option>
+							                    	<option value="30">30</option>
+							                    	<option value="35">35</option>
+							                    	<option value="40">40</option>
+							                    	<option value="50">50</option>
+							                    	<option value="60">60</option>
+							                    	<option value="70">70</option>
+							                    	<option value="80">80</option>
+							                    	<option value="90">90</option>
+							                    	<option value="100">100</option>
+							                    	<option value="150">150</option> 
+							                    </select>
+							                </div>
+						                </div>
+					                </div>
+					                <div class="col-xs-4 to_f">
+					                  	<div class="styled-select slate2 snumber mobile-select">
+					                  		<div class="select-wrapper">
+						                    	<select name="uchto" title="до">
+						                    		<option value="undefined" selected>до</option>
+						                    		<option value="15">15</option>
+						                    		<option value="20">20</option>
+						                    		<option value="25">25</option>
+						                    		<option value="30">30</option>
+						                    		<option value="35">35</option>
+						                    		<option value="40">40</option>
+						                    		<option value="50">50</option>
+						                    		<option value="60">60</option>
+						                    		<option value="70">70</option>
+						                    		<option value="80">80</option>
+						                    		<option value="90">90</option>
+						                    		<option value="100">100</option>
+						                    		<option value="150">150</option>
+						                    		<option value="200">200</option>
+						                    	</select>
+						                    </div>
+					                  	</div>
+					                </div>
+				              	</div>
+				              	<div class="row" style="margin-bottom:7px">
+					                <div class="col-xs-4"><nobr>Цена, $ <span class="mln">млн.</span></nobr></div>
+					                <div class="col-xs-4 from_f"> 
+					                  		                     
+					                  	<div class="styled-select slate2 snumber mobile-select">
+					                  		<div class="select-wrapper">
+						                    	<select name="pricefrom" title="от">
+						                    		<option value="undefined" selected>от</option>
+						                    		<option value="0.1">0.1</option>
+						                    		<option value="0.2">0.2</option>
+						                    		<option value="0.3">0.3</option>
+						                    		<option value="0.4">0.4</option>
+						                    		<option value="0.5">0.5</option>
+						                    		<option value="0.6">0.6</option>
+						                    		<option value="10">10</option>
+						                    		<option value="15">15</option> 
+						                    	</select>
+						                    </div>
+					                  	</div>
+					                </div>
+					                <div class="col-xs-4 to_f"> 
+					                  
+					                  	<div class="styled-select slate2 snumber mobile-select">
+					                  		<div class="select-wrapper">
+						                    	<select name="priceto" title="до">
+						                    		<option value="undefined" selected>до</option>
+						                    		<option value="0.2">0.2</option>
+						                    		<option value="0.3">0.3</option>
+						                    		<option value="0.4">0.4</option>
+						                    		<option value="0.5">0.5</option>
+						                    		<option value="0.6">0.6</option>
+						                    		<option value="0.7">0.7</option>
+						                    		<option value="10">10</option>
+						                    		<option value="15">15</option>
+						                    		<option value="20">20</option>
+						                    	</select>
+						                    </div>
+					                  	</div>
+					                </div>
+				              	</div>
+
+				              	<div class="row">
+                                    <div class="col-xs-12">
+                                        <input type="text" value="" placeholder="Поиск по № объекта" name="artikul">
+                                    </div>
+                                </div>
+
+				              	<div class="rash"> 
+                                    <a href="javascript:void(0)" class="link_rash">Расширенный поиск</a>
+                                </div>
+
+                                <div class="form_rash">
+             
+                                    <div class="col-xs-12 lsel" style="padding-left:0; padding-bottom:4px;">
+                                        <input type="checkbox" class="checkbox" name="ohran" id="ohran">
+                                        <label for="ohran">Здание для охраны</label>
+                                    </div>
+                                    <div class="col-xs-12 lsel" style="padding-left:0; padding-bottom:4px;">
+                                        <input type="checkbox" class="checkbox" name="prislug" id="prislug">
+                                        <label for="prislug">Дом для прислуги</label>
+                                    </div>
+                                    <div class="col-xs-12 lsel" style="padding-left:0; padding-bottom:4px;">
+                                        <input type="checkbox" class="checkbox" name="bassein" id="bassein">
+                                        <label for="bassein">Бассейн</label>
+                                    </div>
+                                    <div class="col-xs-12 lsel" style="padding-left:0; padding-bottom:4px;">
+                                        <input type="checkbox" class="checkbox" name="parkovka" id="parkovka">
+                                        <label for="parkovka">Парковка</label>
+                                    </div>
+                                    <div class="col-xs-12 lsel" style="padding-left:0; padding-bottom:4px;">
+                                        <input type="checkbox" class="checkbox" name="garazh" id="garazh">
+                                        <label for="garazh">Гараж</label>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-xs-12">
+                                            <div class="styled-select slate2 mobile-select">
+                                            	<div class="select-wrapper">
+	                                                <select name="sort" title="Сортировка">
+	                                                	<option value="undefined" selected>Сортировка</option>
+	                                                    <option value="sort_id_minus">Новые</option>
+	                                                    <option value="sort_id_plus">Старые</option>
+	                                                    <option value="sort_price_minus">Дорогие</option>
+	                                                    <option value="sort_price_plus">Дешевые</option>
+	                                                </select>
+	                                            </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!--<div class="row">
+                                        <div class="col-xs-12">
+                                            <div class="styled-select slate2">
+                                                <select name="cnt" multiple data-max-options="1" class="selectpicker" title="Объектов на странице">
+                                                    <option value="12" >12 объектов на странице</option>
+                                                    <option value="24" >24 объектов на странице</option>
+                                                    <option value="48" >48 объектов на странице</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>-->
+
+                                </div>
+
+
+				              	<input type="submit" value="Найти" class="find">
+				            </fieldset>
+	          			</form>
+	        		</div>
+	        		<div></div>
+	      		</div>
+	    	</div>
+	  	</div>
+	</div>
+	
+	<!-- Сюда загружается внутреннее содержимое -->
+	<div id="viewBlock">
+		<div ng-view></div>
+	</div>
+
+	
+
+	<!-- FOOTER -->
+	<footer>
+	  	<div class="container">
+		    <div class="row">
+		      	<div class="col-xs-2 col-sm-3 col-md-3">
+		        	<p class="pull-left ontop">
+		        		<a href="#"><span class="glyphicon glyphicon-chevron-up"></span></a>
+		        	</p>
+		      	</div>
+		      	<div class="col-xs-5 col-sm-6 col-md-6">
+		        	<p style="text-align:center;" class="text">PRIVATO ESTATE BOUTIQUE AGENCY <span class="footer-desktop-only">&copy; 2015 – 2016</span></p>
+		      	</div>
+		      	<div class="col-xs-5  col-sm-3 col-md-3">
+		        	<p class="soc">
+		                <a class="soc_yt" href="#" target="_blank"><span>Youtube</span></a> 
+		                <a class="soc_ig" href="https://www.instagram.com/privatoestate/" target="_blank"><span>Instagram</span></a> 
+		                <a class="soc_fb" href="https://www.facebook.com/PrivatoEstate/" target="_blank"><span>Facebook</span></a>                  
+		            </p>
+		      	</div>
+		    </div>
+	  	</div>
+	</footer>
+
+	<!-- Подложка -->
+	<div class="substrate-block"></div>
+
+	<script type="text/javascript"> 
+		$(window).load(function(){
+			$(".dropdown-menu").mouseleave(function() {
+		    	$(".btn-group.bootstrap-select.show-tick").removeClass("open");
+			});
+		});
+	</script>
+
+</body>
+</html>

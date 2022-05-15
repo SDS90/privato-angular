@@ -1,0 +1,81 @@
+//Variables
+
+
+$pageWidth: 1054px; //Ширина страницы
+$pagePadding: 55px; //Отступы по сторонам
+
+$bodyBG: #fff;
+$inputText: #666;
+$linkColor: #33a1ff;
+
+$mainFont: 'Open Sans', sans-serif;
+//Общие элементы (кроме reset)
+
+*{
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+body{
+	background-color: $bodyBG;
+	height: 100%;
+	font-family: $mainFont;
+}
+b,strong{
+	font-weight: bold;
+}
+i,em{
+	font-style: italic;
+}
+html * {
+	max-height:1000000px;
+}
+.clearfix{
+	clear: both;
+}
+.clear:after{
+	visibility: hidden;
+	display: block;
+	font-size: 0;
+	content: " ";
+	clear: both;
+	height: 0;
+}
+
+a{
+	color: $linkColor;
+	text-decoration: none;
+}
+
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder,
+input::-moz-placeholder, textarea::-moz-placeholder,
+input::placeholder, textarea::placeholder {
+	font-family: 'Open Sans', sans-serif;
+  	color: $inputText;
+	font-size: 18px;
+}
+
+.margin-bottom-0{
+	margin-bottom: 0px !important;
+}
+
+.margin-top-0{
+	margin-top: 0px !important;
+}
+
+.margin-top-20{
+	margin-top: 20px !important;
+}
+
+.margin-bottom-65{
+	margin-bottom: 65px;
+}
+
+.right-55{
+	right: 55px !important;
+}
+
+.no-margin{
+	margin-left: 0px !important;
+}

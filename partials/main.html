@@ -1,0 +1,434 @@
+<div class="jumbotron">
+	  	<div class="container">
+	    	<div class="row">
+	    		<!-- Сайдбар - колонка -->
+	      		<div class="col-xs-12 col-sm-4 col-lg-4 main-sidebar-wrapper">
+	        		<div class="sidebar1" style="max-width:312px;"> 
+	        			<a href="javascript:void(0)" class="but_rent r_active but_buy_button" >Продажа</a> 
+	        			<a href="javascript:void(0)" class="but_rent but_rent_button">Аренда</a>
+
+	                    <form method="POST" enctype="multipart/form-data" class="filter-form" >
+
+				            <!--<input name="search" value="catalog" type="hidden">
+				            <input name="goto" value="main" type="hidden">-->
+				            <input name="rent" value="sale" type="hidden" class="form-rent">
+
+				            <fieldset>
+					            <div class="styled-select slate2">
+                                    <select name="routes" class="selectpicker select-route" multiple data-live-search="true" title="Направление" data-header="Выберите">
+                                        <option ng-repeat="route in privatoData.Routes" class="{{route.id}}" data-tokens="{{route.nameRus}}" value="{{route.id}}" on-finish-render="ngRepeatFinished">{{route.nameRus}}</option>
+                                    </select>
+                                </div>
+
+                                <div class="styled-select slate2">
+                                    <select name="settlements" class="selectpicker select-town" multiple data-live-search="true" title="Населенный пункт" data-header="Выберите">
+                                        <option ng-repeat="town in privatoData.Towns" class="route-id-{{town.route}} {{town.id}}" data-tokens="{{town.nameRus}}" value="{{town.id}}" on-finish-render="ngRepeatFinished">{{town.nameRus}}</option>
+                                    </select>
+                                </div>
+
+                                <div class="styled-select slate2">
+                                    <select name="villages" class="selectpicker select-settlements" multiple data-live-search="true" title="Коттеджный поселок" data-header="Выберите">
+                                        <option ng-repeat="settlement in privatoData.Settlements" class="route-id-{{settlement.routeID}} town-id-{{settlement.townID}} {{settlement.id}}" data-tokens="{{settlement.nameRus}}"  value="{{settlement.id}}" on-finish-render="ngRepeatFinished">{{settlement.nameRus}}</option>
+                                    </select>
+                                </div>
+
+                                <div class="styled-select slate2">
+                                    <select name="types" class="selectpicker" multiple data-live-search="false" title="Тип недвижимости" data-header="Выберите">
+                                        <option ng-repeat="type in privatoData.estatesTypes" data-tokens="{{type.name}}"  value="{{type.value}}" on-finish-render="ngRepeatFinished">{{type.name}}</option>
+                                    </select>
+                                </div>
+                                <div class="styled-select slate2" >
+                                    <select name="sost" class="selectpicker" multiple data-live-search="false" title="Состояние" data-header="Выберите">
+                                        <option ng-repeat="condition in privatoData.estatesCondition" data-tokens="{{condition.name}}"  value="{{condition.value}}" on-finish-render="ngRepeatFinished">{{condition.name}}</option>
+                                    </select>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-xs-4" ><nobr>МКАД,  км</nobr></div>
+                                    <div class="col-xs-4 from_f">
+                                        <div class="styled-select slate2 snumber">
+                                            <select name="mkadfrom" class="selectpicker" title="от">
+                                                <option value="0">0</option>
+                                                <option value="5">5</option>
+                                                <option value="10">10</option>
+                                                <option value="15">15</option>
+                                                <option value="20">20</option>
+                                                <option value="25">25</option>
+                                                <option value="30">30</option>
+                                                <option value="35">35</option>                    
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4 to_f">
+                                        <div class="styled-select slate2 snumber">
+                                            <select name="mkadto" data-max-options="1" class="selectpicker" title="до">
+                                                <option value="5">5</option>
+                                                <option value="10">10</option>
+                                                <option value="15">15</option>
+                                                <option value="20">20</option>
+                                                <option value="25">25</option>
+                                                <option value="30">30</option>
+                                                <option value="35">35</option>
+                                                <option value="40">40</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-xs-4"><nobr>Площадь, м<sup>2</sup></nobr></div>
+                                    <div class="col-xs-4 from_f">
+                                        <div class="styled-select slate2 snumber">
+                                            <select name="squarefrom" data-max-options="1" class="selectpicker" title="от">
+                                                <option value="200">200</option>
+                                                <option value="300">300</option>
+                                                <option value="400">400</option>
+                                                <option value="500">500</option>
+                                                <option value="600">600</option>
+                                                <option value="700">700</option>
+                                                <option value="800">800</option>
+                                                <option value="900">900</option>
+                                                <option value="1000">1000</option>
+                                                <option value="1200">1200</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4 to_f">
+                                        <div class="styled-select slate2 snumber">
+                                            <select name="squareto" data-max-options="1" class="selectpicker" title="до">
+                                                <option value="300">300</option>
+                                                <option value="400">400</option>
+                                                <option value="500">500</option>
+                                                <option value="600">600</option>
+                                                <option value="700">700</option>
+                                                <option value="800">800</option>
+                                                <option value="900">900</option>
+                                                <option value="1000">1000</option>
+                                                <option value="1200">1200</option>
+                                                <option value="1500">1500</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-xs-4"><nobr>Участок, сот.</nobr></div>
+                                    <div class="col-xs-4 from_f">
+                                        <div class="styled-select slate2 snumber">
+                                            <select name="uchfrom" data-max-options="1" class="selectpicker" title="от">
+                                                <option value="10">10</option>
+                                                <option value="15">15</option>
+                                                <option value="20">20</option>
+                                                <option value="25">25</option>
+                                                <option value="30">30</option>
+                                                <option value="35">35</option>
+                                                <option value="40">40</option>
+                                                <option value="50">50</option>
+                                                <option value="60">60</option>
+                                                <option value="70">70</option>
+                                                <option value="80">80</option>
+                                                <option value="90">90</option>
+                                                <option value="100">100</option>
+                                                <option value="150">150</option> 
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4 to_f">
+                                        <div class="styled-select slate2 snumber">
+                                            <select name="uchto" data-max-options="1" class="selectpicker" title="до">
+                                                <option value="15">15</option>
+                                                <option value="20">20</option>
+                                                <option value="25">25</option>
+                                                <option value="30">30</option>
+                                                <option value="35">35</option>
+                                                <option value="40">40</option>
+                                                <option value="50">50</option>
+                                                <option value="60">60</option>
+                                                <option value="70">70</option>
+                                                <option value="80">80</option>
+                                                <option value="90">90</option>
+                                                <option value="100">100</option>
+                                                <option value="150">150</option>
+                                                <option value="200">200</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-bottom:7px" >
+                                    <div class="col-xs-4"><nobr>Цена, $ <span id="mln">млн.</span></nobr></div>
+                                    <div class="col-xs-4 from_f"> 
+                                                                 
+                                        <div class="styled-select slate2 snumber">
+                                            <select name="pricefrom" data-max-options="1" class="selectpicker" title="от">
+                                                <option value="0.1">0.1</option>
+                                                <option value="0.2">0.2</option>
+                                                <option value="0.3">0.3</option>
+                                                <option value="0.4">0.4</option>
+                                                <option value="0.5">0.5</option>
+                                                <option value="0.6">0.6</option>
+                                                <option value="10">10</option>
+                                                <option value="15">15</option> 
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4 to_f"> 
+                                      
+                                        <div class="styled-select slate2 snumber">
+                                            <select name="priceto" data-max-options="1" class="selectpicker" title="до">
+                                                <option value="0.2">0.2</option>
+                                                <option value="0.3">0.3</option>
+                                                <option value="0.4">0.4</option>
+                                                <option value="0.5">0.5</option>
+                                                <option value="0.6">0.6</option>
+                                                <option value="0.7">0.7</option>
+                                                <option value="10">10</option>
+                                                <option value="15">15</option>
+                                                <option value="20">20</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+				              	<input type="submit" value="Найти" class="find">
+				            </fieldset>
+	          			</form>
+	        		</div>
+	        		<div></div>
+	      		</div>
+
+	      		<div class="col-sm-12 col-md-8 col-lg-8 headtext">
+                    
+                    <div class="header-wrapper">
+    	                <h1>ЗАГОРОДНАЯ ЖИЗНЬ<br> КЛАССА PREMIUM</h1>
+
+    					<p>Добро пожаловать в Privato Estate &mdash; <br>вашего надежного партнера и личного эксперта <br>в сфере элитной загородной недвижимости. </p>
+                    </div>
+
+					<div class="abouthead">
+		                <div>Наша концепция</div>
+		        		<span>У нас есть цель &mdash; стать лучшим бутиковым агентством недвижимости по элитному загородному жилью в Подмосковье. Исключительная специализация на узком сегменте рынка позволяет нам предоставлять профессиональный сервис высшего качества. В своей работе мы стремимся превзойти ожидания наших клиентов выстраивая отношения на долгие годы.</span>
+		            </div>
+
+				</div>
+	    </div>
+	  </div>
+	</div>
+
+<!-- Marketing messaging and featurettes
+    ================================================== --> 
+<!-- Wrap the rest of the page in another container to center all the content. -->
+	<div class="marketing">
+	  	<div class="container"> 
+	    
+		    <!-- Three columns of text below the carousel -->
+		    <div class="row">
+		      	<div class="col-md-4 col-lg-4">
+			        <ul class="media-list">
+				        <li class="media"> 
+				        	<span class="pull-left"><img class="media-object" src="images/time.png" alt=""></span>
+				            <div class="media-body">
+				                <h4 class="media-heading">Ценим ваше время</h4>
+				              	Мы понимаем, что основной ресурс наших клиентов &mdash; это время, поэтому мы не тратим его зря, вовремя выполняя поставленные перед нами задачи и предлагая только лучшее.
+				          	</div>
+				        </li>
+			        </ul>
+		      	</div>
+		      	<!-- /.col-lg-4 -->
+			    <div class="col-md-4 col-lg-4">
+			        <ul class="media-list">
+				        <li class="media"> 
+				        	<span class="pull-left"><img class="media-object" src="images/protect.png" alt=""></span>
+				            <div class="media-body">
+				            	<h4 class="media-heading">Защищаем ваши интересы</h4>
+				              	Искусство переговоров &mdash; это суть нашей работы. Мы гарантируем, что в процессе подготовки к сделке будет сделано все для обеспечения максимально выгодных условий.
+				            </div>
+				        </li>
+			        </ul>
+		      	</div>
+		      	<!-- /.col-lg-4 -->
+		      	<div class="col-md-4 col-lg-4">
+			        <ul class="media-list">
+			          	<li class="media">
+			          		<span class="pull-left"><img class="media-object" src="images/comfort.png" alt=""></span>
+			            	<div class="media-body">
+			                    <h4 class="media-heading">Обеспечиваем вам комфорт</h4>
+			              		Мы искренне считаем, что высокий уровень культуры общения и профессионализма команды обеспечивают нашим клиентам максимально комфортное взаимодействие.
+			              	</div>
+			          	</li>
+			        </ul>
+		      	</div>
+		      <!-- /.col-lg-4 --> 
+		    </div>
+		    <!-- /.row --> 
+	  	</div>
+	</div>
+
+	<!-- START THE FEATURETTES -->
+	<div class="featurette">
+	  	<div class="container inmain">
+	    	<div class="row">
+	      		<div class="col-md-12 h2 pp">Популярные поселки</div>
+
+	      		<!-- правая часть -->
+	      
+	      		<div class="col-xs-12 col-sm-12 col-md-6 col-right" style="float:right;">
+
+	      			<div class="row">
+
+		      			<!-- Блок посёлка (большой) -->
+		            	<a href="#/settlement/{{privatoData.popularSettlements[0].id}}/" class="col-xs-12 col-md-12 w562 pop_pos list_pos main">
+		            		<div class="photoblock" style="height:452px; background-image: url({{privatoData.popularSettlements[0].photo}});">
+                                <img src="{{privatoData.popularSettlements[0].photo}}" alt="">
+		            		    <strong ng-show="privatoData.popularSettlements[0].nameRus.length"><div>{{privatoData.popularSettlements[0].nameRus}}</div></strong> 
+		            		    <span class="advts-num" ng-show="privatoData.popularSettlements[0].housesNum.length">{{privatoData.popularSettlements[0].housesNum}} предложений</span>
+		            		</div>
+		            		<div class="loca"><span ng-show="privatoData.popularSettlements[0].routeName.length">{{privatoData.popularSettlements[0].routeName}}, {{privatoData.popularSettlements[0].routeKM}} км</span></div>
+		        		</a>
+
+		                <a href="#/settlement/{{privatoData.popularSettlements[2].id}}/" class="col-xs-12 col-sm-6 col-md-12 col-lg-6 pop_pos list_pos main">
+		                	<div class="photoblock" style="background-image: url({{privatoData.popularSettlements[2].photo}});"> 
+                                <img src="{{privatoData.popularSettlements[2].photo}}" alt="">
+		                		<strong ng-show="privatoData.popularSettlements[2].nameRus.length"><div>{{privatoData.popularSettlements[2].nameRus}}</div></strong> 
+		                		<span class="advts-num" ng-show="privatoData.popularSettlements[2].housesNum.length">{{privatoData.popularSettlements[2].housesNum}} предложений</span>
+		                	</div>
+		                	<div class="loca"><span ng-show="privatoData.popularSettlements[2].routeName.length">{{privatoData.popularSettlements[2].routeName}}, {{privatoData.popularSettlements[2].routeKM}} км</span></div>
+		                </a>
+
+		                <a href="#/settlement/{{privatoData.popularSettlements[3].id}}/" class="col-xs-12 col-sm-6 col-md-12 col-lg-6 pop_pos list_pos main">
+		                	<div class="photoblock" style="background-image: url({{privatoData.popularSettlements[3].photo}});"> 
+                                <img src="{{privatoData.popularSettlements[3].photo}}" alt="">
+		                		<strong ng-show="privatoData.popularSettlements[3].nameRus.length"><div>{{privatoData.popularSettlements[3].nameRus}}</div></strong> 
+		                		<span class="advts-num" ng-show="privatoData.popularSettlements[3].housesNum.length">{{privatoData.popularSettlements[3].housesNum}} предложений</span>
+		                	</div>
+		                	<div class="loca"><span ng-show="privatoData.popularSettlements[3].routeName.length">{{privatoData.popularSettlements[3].routeName}}, {{privatoData.popularSettlements[3].routeKM}} км</span></div>
+		                </a>
+
+		                <a href="#/settlement/{{privatoData.popularSettlements[4].id}}/" class="col-xs-12 col-sm-6 col-md-12 col-lg-6 pop_pos list_pos main">
+		                	<div class="photoblock" style="background-image: url({{privatoData.popularSettlements[4].photo}});"> 
+                                <img src="{{privatoData.popularSettlements[4].photo}}" alt="">
+		                		<strong ng-show="privatoData.popularSettlements[4].nameRus.length"><div>{{privatoData.popularSettlements[4].nameRus}}</div></strong> 
+		                		<span class="advts-num" ng-show="privatoData.popularSettlements[4].housesNum.length">{{privatoData.popularSettlements[4].housesNum}} предложений</span>
+		                	</div>
+		                	<div class="loca"><span ng-show="privatoData.popularSettlements[4].routeName.length">{{privatoData.popularSettlements[4].routeName}}, {{privatoData.popularSettlements[4].routeKM}} км</span></div>
+		                </a>
+
+		                <a href="#/settlement/{{privatoData.popularSettlements[5].id}}/" class="col-xs-12 col-sm-6 col-md-12 col-lg-6 pop_pos list_pos main">
+		                	<div class="photoblock" style="background-image: url({{privatoData.popularSettlements[5].photo}});"> 
+                                <img src="{{privatoData.popularSettlements[5].photo}}" alt="">
+		                		<strong ng-show="privatoData.popularSettlements[5].nameRus.length"><div>{{privatoData.popularSettlements[5].nameRus}}</div></strong> 
+		                		<span class="advts-num" ng-show="privatoData.popularSettlements[5].housesNum.length">{{privatoData.popularSettlements[5].housesNum}} предложений</span>
+		                	</div>
+		                	<div class="loca"><span ng-show="privatoData.popularSettlements[5].routeName.length">{{privatoData.popularSettlements[5].routeName}}, {{privatoData.popularSettlements[5].routeKM}} км</span></div>
+		                </a>
+
+		             </div>
+	            </div>
+
+	      		<!-- Левая часть -->
+	      		<div class="col-xs-12 col-sm-12 col-md-6 col-left">
+
+	      			<div class="row">
+
+		      			<!-- Блок посёлка -->
+		                <a href="#/settlement/{{privatoData.popularSettlements[6].id}}/" class="col-xs-12 col-sm-6 col-md-12 col-lg-6 pop_pos list_pos main">
+		                	<div class="photoblock" style="background-image: url({{privatoData.popularSettlements[6].photo}});"> 
+                                <img src="{{privatoData.popularSettlements[6].photo}}" alt="">
+		                		<strong ng-show="privatoData.popularSettlements[6].nameRus.length"><div>{{privatoData.popularSettlements[6].nameRus}}</div></strong> 
+		                		<span class="advts-num" ng-show="privatoData.popularSettlements[6].housesNum.length">{{privatoData.popularSettlements[6].housesNum}} предложений</span>
+		                	</div>
+		                	<div class="loca"><span ng-show="privatoData.popularSettlements[6].routeName.length">{{privatoData.popularSettlements[6].routeName}}, {{privatoData.popularSettlements[6].routeKM}} км</span></div>
+		                </a>
+						
+						<!-- Блок посёлка -->
+		                <a href="#/settlement/{{privatoData.popularSettlements[7].id}}/" class="col-xs-12 col-sm-6 col-md-12 col-lg-6 pop_pos list_pos main">
+		                	<div class="photoblock" style="background-image: url({{privatoData.popularSettlements[7].photo}});"> 
+                                <img src="{{privatoData.popularSettlements[7].photo}}" alt="">
+		                		<strong ng-show="privatoData.popularSettlements[7].nameRus.length"><div>{{privatoData.popularSettlements[7].nameRus}}</div></strong> 
+		                		<span class="advts-num" ng-show="privatoData.popularSettlements[7].housesNum.length">{{privatoData.popularSettlements[7].housesNum}} предложений</span>
+		                	</div>
+		                	<div class="loca"><span ng-show="privatoData.popularSettlements[7].routeName.length">{{privatoData.popularSettlements[7].routeName}}, {{privatoData.popularSettlements[7].routeKM}} км</span></div>
+		                </a>
+
+		                <!-- Блок посёлка -->
+		                <a href="#/settlement/{{privatoData.popularSettlements[8].id}}/" class="col-xs-12 col-sm-6 col-md-12 col-lg-6 pop_pos list_pos main">
+		                	<div class="photoblock" style="background-image: url({{privatoData.popularSettlements[8].photo}});"> 
+                                <img src="{{privatoData.popularSettlements[8].photo}}" alt="">
+		                		<strong ng-show="privatoData.popularSettlements[8].nameRus.length"><div>{{privatoData.popularSettlements[8].nameRus}}</div></strong> 
+		                		<span class="advts-num" ng-show="privatoData.popularSettlements[8].housesNum.length">{{privatoData.popularSettlements[8].housesNum}} предложений</span>
+		                	</div>
+		                	<div class="loca"><span ng-show="privatoData.popularSettlements[8].routeName.length">{{privatoData.popularSettlements[8].routeName}}, {{privatoData.popularSettlements[8].routeKM}} км</span></div>
+		                </a>
+
+		                <!-- Блок посёлка -->
+		                <a href="#/settlement/{{privatoData.popularSettlements[9].id}}/" class="col-xs-12 col-sm-6 col-md-12 col-lg-6 pop_pos list_pos main">
+		                	<div class="photoblock" style="background-image: url({{privatoData.popularSettlements[9].photo}});"> 
+                                <img src="{{privatoData.popularSettlements[9].photo}}" alt="">
+		                		<strong ng-show="privatoData.popularSettlements[9].nameRus.length"><div>{{privatoData.popularSettlements[9].nameRus}}</div></strong> 
+		                		<span class="advts-num" ng-show="privatoData.popularSettlements[9].housesNum.length">{{privatoData.popularSettlements[9].housesNum}} предложений</span>
+		                	</div>
+		                	<div class="loca"><span ng-show="privatoData.popularSettlements[9].routeName.length">{{privatoData.popularSettlements[9].routeName}}, {{privatoData.popularSettlements[9].routeKM}} км</span></div>
+		                </a>
+
+		                <a href="#/settlement/{{privatoData.popularSettlements[1].id}}/" class="col-xs-12 col-sm-6 col-md-12 col-lg-12 w562 pop_pos list_pos main">
+		            		<div class="photoblock" style="background-image: url({{privatoData.popularSettlements[1].photo}});">
+                                <img src="{{privatoData.popularSettlements[1].photo}}" alt="">
+		            		    <strong ng-show="privatoData.popularSettlements[1].nameRus.length"><div>{{privatoData.popularSettlements[1].nameRus}}</div></strong> 
+		            		    <span class="advts-num" ng-show="privatoData.popularSettlements[1].housesNum.length">{{privatoData.popularSettlements[1].housesNum}} предложений</span>
+		            		</div>
+		            		<div class="loca"><span ng-show="privatoData.popularSettlements[1].routeName.length">{{privatoData.popularSettlements[1].routeName}}, {{privatoData.popularSettlements[1].routeKM}} км</span></div>
+		        		</a>
+
+		                <!-- Блок посёлка -->
+		                <a href="#/settlement/{{privatoData.popularSettlements[10].id}}/" class="col-xs-12 col-sm-6 col-md-12 col-lg-6 pop_pos list_pos main">
+		                	<div class="photoblock" style="background-image: url({{privatoData.popularSettlements[10].photo}});"> 
+                                <img src="{{privatoData.popularSettlements[10].photo}}" alt="">
+		                		<strong ng-show="privatoData.popularSettlements[10].nameRus.length"><div>{{privatoData.popularSettlements[10].nameRus}}</div></strong> 
+		                		<span class="advts-num" ng-show="privatoData.popularSettlements[10].housesNum.length">{{privatoData.popularSettlements[10].housesNum}} предложений</span>
+		                	</div>
+		                	<div class="loca"><span ng-show="privatoData.popularSettlements[10].routeName.length">{{privatoData.popularSettlements[10].routeName}}, {{privatoData.popularSettlements[10].routeKM}} км</span></div>
+		                </a>
+
+		                <!-- Блок посёлка -->
+		                <a href="#/settlement/{{privatoData.popularSettlements[11].id}}/" class="col-xs-12 col-sm-6 col-md-12 col-lg-6 pop_pos list_pos main">
+		                	<div class="photoblock" style="background-image: url({{privatoData.popularSettlements[11].photo}});"> 
+                                <img src="{{privatoData.popularSettlements[11].photo}}" alt="">
+		                		<strong ng-show="privatoData.popularSettlements[11].nameRus.length"><div>{{privatoData.popularSettlements[11].nameRus}}</div></strong> 
+		                		<span class="advts-num" ng-show="privatoData.popularSettlements[11].housesNum.length">{{privatoData.popularSettlements[11].housesNum}} предложений</span>
+		                	</div>
+		                	<div class="loca"><span ng-show="privatoData.popularSettlements[11].routeName.length">{{privatoData.popularSettlements[11].routeName}}, {{privatoData.popularSettlements[11].routeKM}} км</span></div>
+		                </a>
+
+		             </div>
+
+	            </div>
+
+	            <div class="clearfix"></div>
+
+	      		<div class="col-xs-12 h2 pn">Популярные направления</div>
+
+	      		<div class="col-xs-12 main_bott">
+
+	      			<div class="row">
+		      			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 main_nap" ng-repeat="route in privatoData.popularRoutes">
+
+		          			<div class="pop_nap">
+		          				<p><strong>{{route.nameRus}}</strong></p>
+								
+								<div ng-repeat="town in route.towns">
+			                        <a href="#/sale/{{route.id}}/{{town.id}}">{{town.nameRus}}</a>
+			                        <span class="pcoun"><sup ng-show="town.housesNum.length">{{town.housesNum}}</sup></span>
+		                    	</div>
+
+		                    </div>
+		        		</div>
+
+		        	</div>
+
+	            </div>
+	    	</div>
+	  	</div>
+	  <!-- /.container --> 
+	  
+	  <!-- /END THE FEATURETTES --> 
+	  
+	</div>

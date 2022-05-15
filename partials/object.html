@@ -1,0 +1,259 @@
+<div class="featurette sec object">
+        <div class="container">
+            <div id="showObject" ng-show="!errorShow" ng-init="onLoad()">
+                <div class="row" >
+                    <div class="col-md-4 col-lg-3  house-sidebar-wrapper">
+                        <div class="sidebar1">
+                            <fieldset>
+                  
+                                <div class="name_vil" ng-show="objectData.settlement.length">{{objectData.settlement}}</div>
+                                <div class="obj_price">
+                                    <strong ng-show="objectData.dollarPrice.length">$ {{objectData.dollarPrice}}</strong>
+                                    <div ng-show="objectData.roublePrice.length">{{objectData.roublePrice}} руб.</div> 
+                                </div>
+
+                                <div class="geo_vil" ng-show="objectData.routeID.length"><a href="#/sale/{{objectData.routeID}}">{{objectData.route}}</a>, {{objectData.routeKM}} км</div>
+
+                                <div class="p4" ng-show="objectData.area.length">Площадь:</div> 
+                                <div class="p4" ng-show="objectData.area.length"><strong>{{objectData.area}} м<sup>2</sup></strong></div>
+
+                                <div class="p4" ng-show="objectData.landArea.length">Участок: </div>
+                                <div class="p4" ng-show="objectData.landArea.length"><strong>{{objectData.landArea}} соток</strong></div>
+
+                                <div class="p4">№ объекта: </div>
+                                <div class="p4"><strong>{{objectData.id}}</strong></div>
+
+                                <a href="#" class="order show-order">Заявка на просмотр</a>
+
+                            </fieldset>
+                        </div>
+
+                        <div class="sidebar1" ng-show="objectData.lat.length && objectData.lng.length">
+                            <fieldset>
+                                <div style="margin:-15px;">
+                                    <div class="map single yandex-map" data-lat="{{objectData.lat}}" data-lng="{{objectData.lng}}" data-zoom="10" data-marker="images/marker.png" ng-init="onMapLoad()"></div>
+                                </div>
+                            </fieldset>
+                        </div>
+
+                        <div class="sidebar1">
+                            <fieldset>
+
+                                <div class="p1" style="margin-top:5px">Поселок</div>
+                                <div class="p2"><a href="#/settlement/{{objectData.settlementID}}/">{{objectData.settlement}}</a></div>
+
+                                <div class="p1" ng-show="objectData.settlementData.pricesFrom.length || objectData.settlementData.pricesTo.length">Стоимость объектов</div>
+                                <div class="p3" ng-show="objectData.settlementData.pricesFrom.length || objectData.settlementData.pricesTo.length"><span ng-show="objectData.settlementData.pricesFrom.length">от</span> <strong ng-show="objectData.settlementData.pricesFrom.length">$ {{objectData.settlementData.pricesFrom}}</strong> <span ng-show="objectData.settlementData.pricesTo.length">до</span> <strong ng-show="objectData.settlementData.pricesTo.length">$ {{objectData.settlementData.pricesTo}}</strong></div>
+
+                                <div class="p4">Населенный пункт:</div> 
+                                <div class="p4"><strong><a href="#/sale/{{objectData.routeID}}/{{objectData.townID}}">{{objectData.town}}</a></strong></div>
+
+                                <div class="p4" ng-show="objectData.settlementData.routeKM.length">От МКАД:</div> 
+                                <div class="p4" ng-show="objectData.settlementData.routeKM.length"><strong>{{objectData.settlementData.routeKM}}  км</strong></div>
+
+                                <div class="p4" ng-show="objectData.settlementData.settlementData.length">Год основания:</div> 
+                                <div class="p4" ng-show="objectData.settlementData.settlementData.length"><strong>{{objectData.settlementData.year}}</strong></div>
+
+                                <div class="p4" ng-show="objectData.settlementData.area.length">Площадь:</div> 
+                                <div class="p4" ng-show="objectData.settlementData.area.length"><strong>{{objectData.settlementData.area}} Га</strong></div>
+
+                                <div class="p4" style="padding-bottom:0" ng-show="objectData.settlementData.houses.length">Кол-во домов:</div> 
+                                <div class="p4" style="padding-bottom:0" ng-show="objectData.settlementData.houses.length"><strong>{{objectData.settlementData.houses}}</strong></div>
+
+                                <a href="#/settlement/{{objectData.settlementID}}/" class="allsales">ВСЕ ПРЕДЛОЖЕНИЯ <span>{{objectData.settlementData.advts}}</span></a>
+
+
+                            </fieldset>
+                        </div>
+                    </div>
+
+                    <article class="col-sm-12 col-md-8 col-lg-9">
+                        <section style="margin-left: -10px; margin-right: -10px;"> 
+              
+                            
+
+                            <div class="clearfix"></div>
+
+                            <div style="width:100%; float:left; clear:both; min-height:51px;">
+                                <div class="col-xs-3 col-sm-4 col-md-4 col-lg-4" style="padding-bottom:20px;">
+                                    <a href="{{backHref}}" class="to_find"><span class="arrow"></span> <span class="text">к поиску</span></a>
+                                </div>
+
+                                <div class="col-xs-6 col-sm-4 col-md-4 col-lg-4" style="padding-bottom:0px;">
+                                    <div class="pos_h1" style="text-align: center;">
+                                        <div class="h1">Объект №{{objectData.id}}</div>
+                                    </div>
+                                </div>
+        
+                                <div class="col-xs-3 col-sm-4 col-md-4 col-lg-4" style="text-align:right; padding-bottom:0px;">
+                                    <div class="to_find fav obj" id="total_fav">
+                                        <a href="javascript:void(0)" class="add-to-note"  title="{{objectData.chosenTitle}}"><i class="glyphicon {{objectData.chosenClass}}"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="clearfix"></div>
+       
+                            <div class="col-xs-12 galo">
+
+                                <!-- фотогалерея -->
+                                <div id="gallery" class="gallery"  images-loaded="imgLoadedEvents">
+
+                                    <a href="{{photo.url}}" ng-repeat="photo in objectData.photos" on-finish-render="ngRepeatFinished">
+                                        <img ng-src="{{photo.url}}" alt="" />
+                                    </a>               
+                                </div>    
+                                <!-- фотогалерея end -->
+
+                            </div>
+
+                            <br class="clearboth"> <!-- Распорка -->
+
+                            <div id="objh1" style="padding: 15px 15px 0px 15px;">
+                                <h1 style="padding-bottom: 10px;">{{objectData.pageHeader}}</h1>
+                            </div>
+
+                            <div class="clearboth"></div> <!-- Распорка -->
+
+                            <div class="sidebar1  double-sidebar">
+                                <fieldset>
+                      
+                                    <div class="name_vil">{{objectData.settlement}}</div>
+                                    <div class="obj_price">
+                                        <strong ng-show="objectData.dollarPrice.length">$ {{objectData.dollarPrice}}</strong>
+                                        <div ng-show="objectData.roublePrice.length">{{objectData.roublePrice}} руб.</div>
+                                    </div>
+
+                                    <div class="geo_vil" ng-show="objectData.routeID.length"><a href="#/sale/{{objectData.routeID}}">{{objectData.route}}</a>, {{objectData.routeKM}} км</div>
+
+                                    <div class="p4" ng-show="objectData.area.length">Площадь:</div> 
+                                    <div class="p4" ng-show="objectData.area.length"><strong >{{objectData.area}} м<sup>2</sup></strong></div>
+                                    <div></div>
+
+                                    <div class="p4" ng-show="objectData.landArea.length">Участок: </div>
+                                    <div class="p4" ng-show="objectData.landArea.length"><strong>{{objectData.landArea}} соток</strong></div>
+                                    <div></div>
+
+                                    <div class="p4">№ объекта: </div>
+                                    <div class="p4"><strong>{{objectData.id}}</strong></div>
+                                    <div></div>
+
+                                    <a href="#" class="order show-order">Заявка на просмотр</a>
+
+
+                                </fieldset>
+                            </div>
+
+                            <div class="col-sm-12 col-md-7 opis">
+
+                                <h2>Планировка</h2>
+
+                                <div class="floor" ng-repeat="floor in objectData.floors">
+                                    <div class="p5 ph">{{floor.name}}</div>
+                                    <span>{{floor.plan}}</span>
+                                </div>
+
+                            </div>
+
+                            <div class="col-sm-12 col-md-5 opis">
+
+                                <h2>Участок</h2>
+
+                                <div class="col-xs-6 p5 p5s" ng-show="objectData.landArea.length">Площадь, соток:</div>
+                                <div class="col-xs-6 p6" ng-show="objectData.landArea.length">{{objectData.landArea}}</div>
+
+                                <div class="clearboth"></div>
+
+                                <div class="col-xs-6 p5 p5s">Ландшафт:</div>
+                                <div class="col-xs-6 p6">{{objectData.landscape}}</div>
+
+                                <div class="clearboth" style="float: none;"></div>
+
+                                <h2>Коммуникации</h2>
+
+                                <div class="col-xs-6 p5 p5s" ng-show="objectData.gas.length">Тип газа:</div>
+                                <div class="col-xs-6 p6" ng-show="objectData.gas.length">{{objectData.gas}}</div>
+
+                                <div class="col-xs-6 p5 p5s" ng-show="objectData.kwt.length">Электричество, кВт:</div>
+                                <div class="col-xs-6 p6" ng-show="objectData.kwt.length">{{objectData.kwt}}</div>
+
+                                <div class="clearboth"></div>
+                            </div>
+
+                            <div class="clearfix"></div>
+
+                            <div class="sidebar1 double-sidebar" ng-show="objectData.lat.length && objectData.lng.length">
+                                <fieldset>
+
+                                    <div style="margin:-15px">
+                                        <div class="map single yandex-map" data-lat="{{objectData.lat}}" data-lng="{{objectData.lng}}" data-zoom="10" data-marker="images/marker.png"  ng-init="onMapLoad(this)"></div>
+                                    </div>
+                                </fieldset>
+                            </div>
+
+                            <div class="clearfix"></div>
+
+                            <div class="sidebar1  double-sidebar">
+                                <fieldset>
+
+                                    <div class="p1" style="margin-top:5px">Поселок</div>
+                                    <div class="p2"><a href="#/settlement/{{objectData.settlementID}}/">{{objectData.settlement}}</a></div>
+
+                                    <div class="p1" ng-show="objectData.settlementData.pricesFrom.length || objectData.settlementData.pricesTo.length">Стоимость объектов</div>
+                                    <div class="p3" ng-show="objectData.settlementData.pricesFrom.length || objectData.settlementData.pricesTo.length"><span ng-show="objectData.settlementData.pricesFrom.length">от</span> <strong ng-show="objectData.settlementData.pricesFrom.length">$ {{objectData.settlementData.pricesFrom}}</strong> <span ng-show="objectData.settlementData.pricesTo.length">до</span> <strong ng-show="objectData.settlementData.pricesTo.length">$ {{objectData.settlementData.pricesTo}}</strong></div>
+                                    <div></div>
+
+                                    <div class="p4">Населенный пункт:</div> 
+                                    <div class="p4"><strong><a href="#/sale/{{objectData.routeID}}/{{objectData.townID}}">{{objectData.town}}</a></strong></div>
+                                    <div></div>
+
+                                    <div class="p4" ng-show="objectData.settlementData.routeKM.length">От МКАД:</div> 
+                                    <div class="p4" ng-show="objectData.settlementData.routeKM.length"><strong>{{objectData.settlementData.routeKM}}  км</strong></div>
+                                    <div></div>
+
+                                    <div class="p4"ng-show="objectData.settlementData.settlementData.length">Год основания:</div> 
+                                    <div class="p4"ng-show="objectData.settlementData.settlementData.length"><strong>{{objectData.settlementData.year}}</strong></div>
+                                    <div></div>
+
+                                    <div class="p4" ng-show="objectData.settlementData.area.length">Площадь:</div> 
+                                    <div class="p4" ng-show="objectData.settlementData.area.length"><strong>{{objectData.settlementData.area}} Га</strong></div>
+                                    <div></div>
+
+                                    <div class="p4" style="padding-bottom:0" ng-show="objectData.settlementData.houses.length">Кол-во домов:</div> 
+                                    <div class="p4" style="padding-bottom:0" ng-show="objectData.settlementData.houses.length"><strong>{{objectData.settlementData.houses}}</strong></div>
+                                    <div></div>
+
+                                    <a href="#/settlement/{{objectData.settlementID}}/" class="allsales">ВСЕ ПРЕДЛОЖЕНИЯ <span>{{objectData.settlementData.advts}}</span></a>
+
+
+                                </fieldset>
+                            </div>
+            
+                        </section>
+                    </article>
+
+                    <div id="modal_form">
+                        <span id="modal_close">X</span> <!-- Кнoпкa зaкрыть --> 
+                        <form action="" method="POST" enctype="multipart/form-data">
+                            <input type="text" value="{{objectData.id}}" name="id" class="novis">
+                            <input type="text" value="" name="lastname" class="novis">
+                            <h3>Заявка на просмотр</h3>
+                            <p>№ Объекта: {{objectData.id}}</p>
+                            <p>
+                                <input type="text" name="name" value="" placeholder="Ваше имя" style="width:100%">
+                            </p>
+                            <p>
+                                <input type="tel" name="tel" value="" placeholder="Ваш телефон" style="width:100%">
+                            </p>
+                            <p style="text-align: center; margin-top:-40px;">
+                                <input type="submit" value="Отправить" class="send">
+                            </p>
+                        </form>
+                    </div>
+                    <div id="overlay"></div><!-- Пoдлoжкa -->
+                </div>
+            </div>
+
+            <div id="errorLoad" ng-show="errorShow" style="margin-top: 100px; font-size: 20px; font-weight: bold; text-align: center;">{{errorText}}</div>
+        </div>
+    </div>
